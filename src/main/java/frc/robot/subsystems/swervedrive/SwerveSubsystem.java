@@ -7,6 +7,7 @@ package frc.robot.subsystems.swervedrive;
 import static edu.wpi.first.units.Units.Meter;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.config.PIDConstants;
@@ -74,7 +75,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * AprilTag field layout.
    */
-  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2024Crescendo);
+  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -119,12 +120,6 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.setModuleEncoderAutoSynchronize(false,
                                                 1); // Enable if you want to resynchronize your absolute encoders and motor encoders periodically when they are not moving.
     swerveDrive.pushOffsetsToEncoders(); // Set the absolute encoder to be used over the internal encoder and push the offsets onto it. Throws warning if not possible
-    /* if (visionDriveTest)
-    {
-      setupPhotonVision();
-      // Stop the odometry thread if we are using vision that way we can synchronize updates better.
-      swerveDrive.stopOdometryThread();
-    } */
 
     setupPathPlanner();
   }
@@ -304,6 +299,21 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   /**
+   * Aim the robot at the speaker.
+   *
+   * @param tolerance Tolerance in degrees.
+   * @return Command to turn the robot to the speaker.
+   */
+  public Command drivetoprocessor()
+  {
+    return run(() -> {
+      Pose3d processorAprilTagPose =aprilTagFieldLayout.getTagPose(16).get();
+      //driveToPose(processorAprilTagPose.toPose2d()).schedule();
+      
+   });
+  }
+
+  /**
    * Aim the robot at the target returned by PhotonVision.
    *
    * @return A {@link Command} which will run the alignment.
@@ -323,23 +333,6 @@ public class SwerveSubsystem extends SubsystemBase
       }
     });
   }
-
- /*  public Command aimAtTarget()
-  {
-
-    return run(
-    () -> {
-
-        if (LimelightHelpers.getFiducialID("limelight") == 1)
-        {
-          drive(getTargetSpeeds(0,
-                                0,
-                                getHeading()));  // Not sure if this will work, more math may be required.
-                                                             
-// (LimelightHelpers.getTX("limelight")
-                                                            }                       
-      }
-    }; */
 
   /**
    * Get the path follower with events.
