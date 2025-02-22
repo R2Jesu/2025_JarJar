@@ -25,12 +25,12 @@ public class RobotContainer {
 
   private void configureBindings() {
     drivebase.setDefaultCommand(
-      drivebase.driveCommand(() -> -driverXbox.getRightY(),
-        () ->  -driverXbox.getRightX(),
-        () -> -driverXbox.getLeftX()));
+      drivebase.driveCommand(() -> driverXbox.getRightY(),
+        () ->  driverXbox.getRightX(),
+        () -> driverXbox.getLeftX()));
 
     driverXbox.button(2).whileTrue(drivebase.drivetoprocessor());
-    driverXbox.button(1).whileTrue(drivebase.aimAtTarget());
+    //driverXbox.button(1).whileTrue(drivebase.aimAtTarget());
   }
 
   public Command getAutonomousCommand() {
