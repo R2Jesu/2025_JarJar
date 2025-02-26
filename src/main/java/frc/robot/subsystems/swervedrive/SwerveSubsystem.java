@@ -139,7 +139,7 @@ public class SwerveSubsystem extends SubsystemBase
                                              Rotation2d.fromDegrees(0)));
   }
 
-  public void updateVisionOdometry(){
+  /* public void updateVisionOdometry(){
     MutAngularVelocity angVelo;
     boolean rejectUpdate = false;
     LimelightHelpers.SetRobotOrientation("limelight",swerveDrive.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
@@ -164,14 +164,14 @@ public class SwerveSubsystem extends SubsystemBase
       //SmartDashboard.putString("Update Odometry", "no");
     }
   }
-
+ */
   @Override
   public void periodic()
   {
     // When vision is enabled we must manually update odometry in SwerveDrive
-    updateVisionOdometry();
+    /* updateVisionOdometry();
     SmartDashboard.putNumber("Heading: ", getHeading().getDegrees());
-    SmartDashboard.putNumber("tx: ", LimelightHelpers.getTX("limelight"));
+    SmartDashboard.putNumber("tx: ", LimelightHelpers.getTX("limelight")); */
   }
 
   @Override

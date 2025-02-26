@@ -5,11 +5,24 @@
 package frc.robot.subsystems;
 
 
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 
 public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
+  private SparkMax elevator1 = new SparkMax(9, MotorType.kBrushless);
+  private SparkMax elevator2 = new SparkMax(10, MotorType.kBrushless);
+  private Encoder elevatorEncoder = new Encoder(1,2, true, CounterBase.EncodingType.k4X);
+
+  
+  
   /** Creates a new R2Jesu_ElevatorSubsystem. */
 
   /** Here we will eventuall put the motor defintions that we need to control to raise and lower the elevator */
@@ -40,31 +53,42 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
     return true;
   }
 
-  public void raiseElevator() {
+  public void raiseElevator(double speed) {
+
   /* raise the elevator which will set the motor in the proper direction to raise
    * this may need to take in a speed and the PID logic for a raise to x level with
    * the PID slowing the speed on approach
    */
+  elevator1.set(speed);
+  elevator2.set(-speed);
 }  
 
-public void lowerElevator() {
+public void lowerElevator(double speed) {
   /* lower the elevator which will set the motor in the proper direction to lower
    * this may need to take in a speed and the PID logic for a lower to x level with
    * the PID slowing the speed on approach
    */
+  elevator1.set(-speed);
+  elevator2.set(speed);
+
+
 } 
 
-public void gotoPostition() {
+public void gotoPostition(int position) {
   /* This may take in a position on the reef representing a coral height
    * Then it will determine our current position and raise or lower to go to requested
    * This is the one that would read the pulses and determine when to stop the call
    * Will likely use a PID to set speed
   */
+
+
 } 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("encoderdistance", elevatorEncoder.getDistance());
+    
   }
 
   @Override

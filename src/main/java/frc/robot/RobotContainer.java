@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.R2Jesu_ElevatorToPositionCommand;
+import frc.robot.subsystems.R2Jesu_ElevatorSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
 public class RobotContainer {
@@ -19,6 +21,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
+  private final R2Jesu_ElevatorSubsystem m_R2Jesu_ElevatorSubsystem = new R2Jesu_ElevatorSubsystem();
   public RobotContainer() {
     configureBindings();
   }
@@ -29,7 +32,7 @@ public class RobotContainer {
         () ->  -driverXbox.getRightX(),
         () -> -driverXbox.getLeftX()));
 
-    driverXbox.button(2).whileTrue(drivebase.drivetoprocessor());
+    driverXbox.button(2).whileTrue(new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 1 ));
     driverXbox.button(1).whileTrue(drivebase.aimAtTarget());
   }
 

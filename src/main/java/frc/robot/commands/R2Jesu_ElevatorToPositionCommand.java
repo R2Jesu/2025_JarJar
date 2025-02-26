@@ -11,15 +11,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 /** An R2Jesu_Elevator command that uses an R2Jesu_Elevatorer subsystem. */
 public class R2Jesu_ElevatorToPositionCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  private int m_position;
+
   private final R2Jesu_ElevatorSubsystem m_subsystem;
 
   /**
    * Creates a new R2Jesu_ElevatorCommand.
-   *
+   * 
    * @param subsystem The subsystem used by this command.
    */
-  public R2Jesu_ElevatorToPositionCommand(R2Jesu_ElevatorSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public R2Jesu_ElevatorToPositionCommand(R2Jesu_ElevatorSubsystem subsystem, int pos) {
+    m_subsystem = subsystem; 
+    m_position=pos;
+
+
 
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -33,7 +38,7 @@ public class R2Jesu_ElevatorToPositionCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.gotoPostition();
+    m_subsystem.gotoPostition(m_position);
   }
   
  
