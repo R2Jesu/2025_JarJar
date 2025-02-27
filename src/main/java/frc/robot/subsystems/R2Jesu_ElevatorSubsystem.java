@@ -4,12 +4,15 @@
 
 package frc.robot.subsystems;
 
+import java.lang.Math;
+import org.photonvision.targeting.proto.TargetCornerProto;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,7 +23,11 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
   private SparkMax elevator1 = new SparkMax(9, MotorType.kBrushless);
   private SparkMax elevator2 = new SparkMax(10, MotorType.kBrushless);
   private Encoder elevatorEncoder = new Encoder(1,2, true, CounterBase.EncodingType.k4X);
-
+  private int currentPosition=0;
+  private int targetPosition=0;
+  private double elevatorStops[] = {300.0, 600.0, 900.0, 1200.0};
+  private PIDController m_elevatorController = new PIDController(.001, 0.0, 0.0, 0.01); //p 1.5
+  private double pidOutput;
   
   
   /** Creates a new R2Jesu_ElevatorSubsystem. */
@@ -80,14 +87,64 @@ public void gotoPostition(int position) {
    * This is the one that would read the pulses and determine when to stop the call
    * Will likely use a PID to set speed
   */
+  this.targetPosition=position;
 
+} 
+
+public void gotoNextPostition() {
+  /* This may take in a position on the reef representing a coral height
+   * Then it will determine our current position and raise or lower to go to requested
+   * This is the one that would read the pulses and determine when to stop the call
+   * Will likely use a PID to set speed
+  */
+  if (currentPosition <= elevatorStops.length - 1)
+  {
+     this.targetPosition=currentPosition + 1;
+  }
+
+} 
+
+public void gotoPriorPostition() {
+  /* This may take in a position on the reef representing a coral height
+   * Then it will determine our current position and raise or lower to go to requested
+   * This is the one that would read the pulses and determine when to stop the call
+   * Will likely use a PID to set speed
+  */
+  if (currentPosition > 0)
+  {
+     this.targetPosition=currentPosition - 1;
+  }
 
 } 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+  pidOutput = m_elevatorController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]);
+  if (targetPosition > currentPosition)
+  {
+    this.raiseElevator(pidOutput);
+  }
+  else 
+  {
+    this.lowerElevator(pidOutput);;
+  }
+  if (Math.abs(elevatorEncoder.getDistance() - elevatorStops[targetPosition]) < 100)
+  {
+    currentPosition=targetPosition;
+    if (currentPosition == 0)
+    {
+      elevator1.set(0);
+      elevator2.set(0);
+    }
+  }
+    
     SmartDashboard.putNumber("encoderdistance", elevatorEncoder.getDistance());
+    SmartDashboard.putNumber("currentPosition", currentPosition);
+    SmartDashboard.putNumber("targetPosition", targetPosition);
+    SmartDashboard.putNumber("pidOutput", pidOutput);
+    SmartDashboard.putNumber("targetDistance", elevatorStops[targetPosition]);
     
   }
 

@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.R2Jesu_ElevatorToPositionCommand;
+import frc.robot.commands.R2Jesu_ElevatorToNextPositionCommand;
+import frc.robot.commands.R2Jesu_ElevatorToPriorPositionCommand;
 import frc.robot.subsystems.R2Jesu_ElevatorSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
@@ -32,8 +34,9 @@ public class RobotContainer {
         () ->  -driverXbox.getRightX(),
         () -> -driverXbox.getLeftX()));
 
-    driverXbox.button(2).whileTrue(new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 1 ));
-    driverXbox.button(1).whileTrue(drivebase.aimAtTarget());
+    driverXbox.button(2).onTrue(new R2Jesu_ElevatorToNextPositionCommand(m_R2Jesu_ElevatorSubsystem));
+    driverXbox.button(1).onTrue(new R2Jesu_ElevatorToPriorPositionCommand(m_R2Jesu_ElevatorSubsystem));
+    
   }
 
   public Command getAutonomousCommand() {
