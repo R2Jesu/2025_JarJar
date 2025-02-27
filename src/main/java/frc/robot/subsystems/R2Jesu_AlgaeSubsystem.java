@@ -8,9 +8,14 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import edu.wpi.first.wpilibj.CounterBase;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class R2Jesu_AlgaeSubsystem extends SubsystemBase {
   /** Creates a new R2Jesu_ElevatorSubsystem. */
+  private Encoder algaeArmEncoder = new Encoder(1,2, true, CounterBase.EncodingType.k4X);
 
   /** Here we will eventuall put the motor defintions that we need to control to raise and lower the elevator */
  
