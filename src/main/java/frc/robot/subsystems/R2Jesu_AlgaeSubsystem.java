@@ -45,8 +45,127 @@ public class R2Jesu_AlgaeSubsystem extends SubsystemBase {
    * this may need to take in a speed and the PID logic for a raise to x level with
    * the PID slowing the speed on approach
    */
+  /* 
 }  
+#include "Robot.h"
 
+int loopy;
+
+void Robot::R2Jesu_Arm()
+{
+  frc::SmartDashboard::PutNumber("fullSpeed", fullSpeed);
+  if (fullSpeed <= .2 || frc::DriverStation::IsAutonomousEnabled()) 
+  //if the full speed is less than or equal to .2, then FRC and drivers station is Autonomous 
+  {
+     if (gridPad.GetRawButton(8)) {
+         if (armX > 1) 
+         {
+           m_armController.SetPID(upPpid, upIpid, upDpid);
+           //if you press button 8 and the arm is greater than 1 then the arm goes up 
+         }
+         else if (armX < 1)
+         {
+           m_armController.SetPID(downPpid, downIpid, downDpid);
+           //if the arm is less than 1 the arm goes down 
+         }
+   
+         armX=1;
+         armSetPoint=armStops[armX];
+         //if the arm is exactly 1 then the arm stops 
+     }
+     if (gridPad.GetRawButton(7) || gridPad.GetRawButton(9)) {
+       if (gridPad.GetRawButton(9)) {
+         if (armSetPoint < 0.91) {
+            armSetPoint=armSetPoint + 0.0003;
+            m_armController.Reset();
+            m_armController.SetPID(upPpid, upIpid, upDpid);
+            //if you press buttons 7 and 9 and the arm is less than 0.91 then the arm will go up .0003
+       }
+       else {
+         if (armSetPoint > .1) {
+            armSetPoint=armSetPoint - 0.0003;
+            m_armController.Reset();
+            m_armController.SetPID(downPpid, downIpid, downDpid);
+            // if the arm is greater than .1 then the arm goes down.0003
+         }
+       }
+       for (loopy=0;loopy < (sizeof(armStops) / sizeof(double)); loopy++)
+       {
+         if (armSetPoint > armStops[loopy])
+         {
+           armX=loopy;
+           break;
+           // if the arm set point is zero the arm stops
+         }
+       }
+     }
+     else {
+       if (m_Operatorstick.GetTriangleButtonPressed()) {
+         if (armX > 0) {
+           armX--;
+           armSetPoint=armStops[armX];
+           m_armController.SetPID(upPpid, upIpid, upDpid);
+           // if triangle button is pressed amd arm is greater than 0, then the arm stops 
+           // and then you can make the arm go up
+         }
+       }
+       if (m_Operatorstick.GetCrossButtonPressed()) {
+         if (armX < ((sizeof(armStops) / sizeof(double)) - 1)) {
+             armX++;
+             armSetPoint=armStops[armX];
+             m_armController.SetPID(downPpid, downIpid, downDpid);
+           }
+           //if the cross button is pressed and the arm is less then 1 then the arm stops
+           //and then you can make the arm go down 
+       }
+       if (gridPad.GetRawButtonPressed(1) || gridPad.GetRawButtonPressed(2) || gridPad.GetRawButtonPressed(3)) {
+         if (armX > 3) 
+         {
+           m_armController.SetPID(upPpid, upIpid, upDpid);
+         }
+         //if you press the buttons 1, 2, and 3 and the arm is greater than 3 then the arm goes up 
+         else if (armX < 3)
+         {
+           m_armController.SetPID(downPpid, downIpid, downDpid);
+         }
+           //if you press the buttons 1, 2, and 3 and the arm is less than 3 then the arm goes down 
+   
+         armX=3;
+         armSetPoint=armStops[armX];
+       }
+       //if the arm equals 3 then the arm stops 
+       if (gridPad.GetRawButtonPressed(4) || gridPad.GetRawButtonPressed(5) || gridPad.GetRawButtonPressed(6)) {
+         if (armX > 2) 
+         {
+           m_armController.SetPID(upPpid, upIpid, upDpid);
+         }
+         //if you press the buttons 4, 5, and 6 and the arm is greater than 2 then the arm goes up 
+         else if (armX < 2)
+         {
+           m_armController.SetPID(downPpid, downIpid, downDpid);
+         }
+         //if you press the buttons 4, 5, and 6, and the arm is less than 2 the arm goes down
+         armX=2;
+         armSetPoint=armStops[armX];
+       }
+   
+     }
+     armPidOutput = m_armController.Calculate((m_encArm.GetAbsolutePosition()), armSetPoint);
+     if (((armX == 0) || (armSetPoint == 0.91)) && !(frc::DriverStation::IsAutonomousEnabled()))
+     {
+       armPidOutput = armPidOutput * .5;
+     }
+     if (armX == 1)
+     {
+       armPidOutput = armPidOutput * .5;
+     }
+   
+     armMotor.Set(armPidOutput);
+     // if arm = 0 or arm = .91 and it is not autonomous then it increases .5
+     // arm = 1 then it increases .5
+  }
+     */
+}
 public void lowerAlgaeArm() {
   /* lower the arm which will set the motor in the proper direction to lower
    * this may need to take in a speed and the PID logic for a lower to x level with
