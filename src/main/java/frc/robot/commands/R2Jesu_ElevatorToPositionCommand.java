@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class R2Jesu_ElevatorToPositionCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private int m_position;
+  private boolean m_finish;
 
   private final R2Jesu_ElevatorSubsystem m_subsystem;
 
@@ -23,7 +24,7 @@ public class R2Jesu_ElevatorToPositionCommand extends Command {
   public R2Jesu_ElevatorToPositionCommand(R2Jesu_ElevatorSubsystem subsystem, int pos) {
     m_subsystem = subsystem; 
     m_position=pos;
-
+    m_finish=false;
 
 
     
@@ -33,17 +34,17 @@ public class R2Jesu_ElevatorToPositionCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_subsystem.gotoPostition(m_position);
+    m_finish=true;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.gotoPostition(m_position);
+    
   }
   
- 
-  
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
@@ -51,6 +52,6 @@ public class R2Jesu_ElevatorToPositionCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_finish;
   }
 }

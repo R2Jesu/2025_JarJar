@@ -4,23 +4,23 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.R2Jesu_ElevatorSubsystem;
+import frc.robot.subsystems.R2Jesu_AlgaeSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** An R2Jesu_Elevator command that uses an R2Jesu_Elevatorer subsystem. */
-public class R2Jesu_ElevatorToPriorPositionCommand extends Command {
+/** An R2Jesu_Algae command that uses an R2Jesu_Algaeer subsystem. */
+public class R2Jesu_AlgaeToPriorPositionCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-  private final R2Jesu_ElevatorSubsystem m_subsystem;
+  private final R2Jesu_AlgaeSubsystem m_subsystem;
   private boolean m_finish = false;
 
   /**
-   * Creates a new R2Jesu_ElevatorCommand.
+   * Creates a new R2Jesu_AlgaeCommand.
    * 
    * @param subsystem The subsystem used by this command.
    */
-  public R2Jesu_ElevatorToPriorPositionCommand(R2Jesu_ElevatorSubsystem subsystem) {
+  public R2Jesu_AlgaeToPriorPositionCommand(R2Jesu_AlgaeSubsystem subsystem) {
     m_subsystem = subsystem; 
     m_finish=false;
 
@@ -42,9 +42,6 @@ public class R2Jesu_ElevatorToPriorPositionCommand extends Command {
 
   }
   
- 
-  
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}

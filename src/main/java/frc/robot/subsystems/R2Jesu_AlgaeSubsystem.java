@@ -5,10 +5,9 @@
 package frc.robot.subsystems;
 
 import java.lang.Math;
-import org.photonvision.targeting.proto.TargetCornerProto;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,36 +15,33 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 
 
-public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
-  private SparkMax elevator1 = new SparkMax(9, MotorType.kBrushless);
-  private SparkMax elevator2 = new SparkMax(10, MotorType.kBrushless);
-  private Encoder elevatorEncoder = new Encoder(1,2, true, CounterBase.EncodingType.k4X);
+public class R2Jesu_AlgaeSubsystem extends SubsystemBase {
+
+  private Encoder algaeEncoder = new Encoder(5,6, true, CounterBase.EncodingType.k4X);
+  private TalonSRX algae1 = new TalonSRX(11);
   private int currentPosition=0;
   private int targetPosition=0;
-  private double elevatorStops[] = {0.0, 500.0, 1000.0, 1500.0};
-  private PIDController m_elevatorController = new PIDController(.0015, 0.0, 0.0, 0.01); //p 1.5
-  private PIDController m_elevatorDownController = new PIDController(.0005, 0.0, 0.0, 0.01); //p 1.5
+  private double algaeStops[] = {0.0, 50.0, 100.0, 150.0};
+  private PIDController m_algaeController = new PIDController(.005, 0.0, 0.0, 0.01); //p 1.5
+  private PIDController m_algaeDownController = new PIDController(.005, 0.0, 0.0, 0.01); //p 1.5
   private double pidOutput;
   private double downpidOutput;
-  private DigitalInput elevatorLimit = new DigitalInput(8);
   
-  
-  /** Creates a new R2Jesu_ElevatorSubsystem. */
+  /** Creates a new R2Jesu_AlgaeSubsystem. */
 
-  /** Here we will eventuall put the motor defintions that we need to control to raise and lower the elevator */
+  /** Here we will eventuall put the motor defintions that we need to control to raise and lower the algae */
  
 
 
   /**
-   * R2Jesu_Elevator command factory method.
+   * R2Jesu_Algae command factory method.
    *
    * @return a command
    */
-  public Command R2Jesu_ElevatorMethodCommand() {
+  public Command R2Jesu_AlgaeMethodCommand() {
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
     return runOnce(
@@ -55,54 +51,39 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
   }
 
   /**
-   * An R2Jesu_Elevator method querying a boolean state of the subsystem (for R2Jesu_Elevator, a digital sensor).
+   * An R2Jesu_Algae method querying a boolean state of the subsystem (for R2Jesu_Algae, a digital sensor).
    *
    * @return value of some boolean subsystem state, such as a digital sensor.
    */
-  public boolean R2Jesu_ElevatorCondition() {
+  public boolean R2Jesu_AlgaeCondition() {
     // Query some boolean state, such as a digital sensor.
     return true;
   }
 
-  public void moveElevator(double speed) {
+  public void moveAlgae(double speed) {
 
-    /* raise the elevator which will set the motor in the proper direction to raise
+    /* raise the algae which will set the motor in the proper direction to raise
      * this may need to take in a speed and the PID logic for a raise to x level with
      * the PID slowing the speed on approach
      */
-    if (speed > .35)
-    {
-      speed = .35;
-    }
-    if (speed < -.2)
-    {
-      speed = -.2;
-    }
+    algae1.set(ControlMode.PercentOutput, speed);
+  }
 
-    elevator1.set(speed);
-    elevator2.set(-speed);
-  } 
+  public void raiseAlgae(double speed) {
 
-  public void raiseElevator(double speed) {
-
-  /* raise the elevator which will set the motor in the proper direction to raise
+  /* raise the algae which will set the motor in the proper direction to raise
    * this may need to take in a speed and the PID logic for a raise to x level with
    * the PID slowing the speed on approach
    */
-  elevator1.set(speed);
-  elevator2.set(-speed);
+  algae1.set(ControlMode.PercentOutput, speed);
 }  
 
-public void lowerElevator(double speed) {
-  /* lower the elevator which will set the motor in the proper direction to lower
+public void lowerAlgae(double speed) {
+  /* lower the algae which will set the motor in the proper direction to lower
    * this may need to take in a speed and the PID logic for a lower to x level with
    * the PID slowing the speed on approach
    */
-  if (speed < 0) {
-    speed = 0;
-  }
-  elevator1.set(-speed);
-  elevator2.set(speed);
+  algae1.set(ControlMode.PercentOutput, -speed);
 
 } 
 
@@ -123,7 +104,7 @@ public void gotoNextPostition() {
    * Will likely use a PID to set speed
   */
   System.out.println("next");
-  if (targetPosition < elevatorStops.length - 1)
+  if (targetPosition < algaeStops.length - 1)
   {
      targetPosition=targetPosition + 1;
   }
@@ -151,47 +132,38 @@ public void gotoPriorPostition() {
 
   // To tuen it off when needed
   //pidOutput=0;
-  if (elevatorLimit.get())
-  {
-    downpidOutput = m_elevatorDownController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]);
-    pidOutput = m_elevatorController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]); 
-  }
-  else
-  {
-    downpidOutput = 0;
-    pidOutput = 0;
-  
-  }
+  downpidOutput = -(m_algaeDownController.calculate(algaeEncoder.getDistance(), algaeStops[targetPosition]));
+  pidOutput = -(m_algaeController.calculate(algaeEncoder.getDistance(), algaeStops[targetPosition])); 
+
 
   if (targetPosition < currentPosition)
   {
-      this.moveElevator(downpidOutput);
+      this.moveAlgae(downpidOutput);
   }
   else if (targetPosition > currentPosition)
   {
-    this.moveElevator(pidOutput);
+    this.moveAlgae(pidOutput);
   }
   else
   {
     if (currentPosition == 0)
     {
-      pidOutput = 0;
-      elevatorEncoder.reset();
+      pidOutput = 0; 
+      algaeEncoder.reset();
     }
-    this.moveElevator(pidOutput);
+    this.moveAlgae(pidOutput);
   } 
 
-  if (Math.abs(elevatorEncoder.getDistance() - elevatorStops[targetPosition]) < 25)
+  if (Math.abs(algaeEncoder.getDistance() - algaeStops[targetPosition]) < 25)
   {
     currentPosition=targetPosition;
   }
     
-    SmartDashboard.putNumber("encoderdistance", elevatorEncoder.getDistance());
-    SmartDashboard.putNumber("currentPosition", currentPosition);
-    SmartDashboard.putNumber("targetPosition", targetPosition);
-    SmartDashboard.putNumber("pidOutput", pidOutput);
-    SmartDashboard.putNumber("downpidOutput", downpidOutput);
-    SmartDashboard.putNumber("targetDistance", elevatorStops[targetPosition]);
+    SmartDashboard.putNumber("Algaeencoderdistance", algaeEncoder.getDistance());
+    SmartDashboard.putNumber("AlgaecurrentPosition", currentPosition);
+    SmartDashboard.putNumber("AlgaetargetPosition", targetPosition);
+    SmartDashboard.putNumber("AlgaepidOutput", pidOutput);
+    SmartDashboard.putNumber("AlgaetargetDistance", algaeStops[targetPosition]);
     
   }
 
