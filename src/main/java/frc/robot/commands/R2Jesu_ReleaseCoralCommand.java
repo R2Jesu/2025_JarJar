@@ -4,26 +4,24 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.R2Jesu_AlgaeSubsystem;
+import frc.robot.subsystems.R2Jesu_CoralSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** An R2Jesu_Algae command that uses an R2Jesu_Algaeer subsystem. */
-public class R2Jesu_AlgaeToPositionCommand extends Command {
+/** An R2Jesu_Coral command that uses an R2Jesu_Coraler subsystem. */
+public class R2Jesu_ReleaseCoralCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private int m_position;
   private boolean m_finish;
 
-  private final R2Jesu_AlgaeSubsystem m_subsystem;
+  private final R2Jesu_CoralSubsystem m_subsystem;
 
   /**
-   * Creates a new R2Jesu_AlgaeCommand.
+   * Creates a new R2Jesu_CoralCommand.
    * 
    * @param subsystem The subsystem used by this command.
    */
-  public R2Jesu_AlgaeToPositionCommand(R2Jesu_AlgaeSubsystem subsystem, int pos) {
+  public R2Jesu_ReleaseCoralCommand(R2Jesu_CoralSubsystem subsystem) {
     m_subsystem = subsystem; 
-    m_position=pos;
     m_finish=false;
 
 
@@ -35,7 +33,7 @@ public class R2Jesu_AlgaeToPositionCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.gotoPostition(m_position);
+    m_subsystem.releaseCoral();
     m_finish=true;
   }
 
@@ -47,7 +45,9 @@ public class R2Jesu_AlgaeToPositionCommand extends Command {
   
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    
+  }
 
   // Returns true when the command should end.
   @Override

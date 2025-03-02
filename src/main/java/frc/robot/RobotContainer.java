@@ -16,21 +16,28 @@ import frc.robot.commands.R2Jesu_ElevatorToPriorPositionCommand;
 import frc.robot.subsystems.R2Jesu_ElevatorSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.R2Jesu_AlgaeSubsystem;
-import frc.robot.commands.R2Jesu_AlgaeToPositionCommand;
-import frc.robot.commands.R2Jesu_AlgaeToNextPositionCommand;
-import frc.robot.commands.R2Jesu_AlgaeToPriorPositionCommand;
+import frc.robot.commands.R2Jesu_AlgaeIngestCommand;
+import frc.robot.commands.R2Jesu_AlgaeRegurgitateCommand;
+import frc.robot.commands.R2Jesu_AlgaeRaiseCommand;
+import frc.robot.commands.R2Jesu_AlgaeLowerCommand;
+import frc.robot.subsystems.R2Jesu_CoralSubsystem;
+import frc.robot.commands.R2Jesu_ReleaseCoralCommand;
 
 public class RobotContainer {
 
    // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
+  final         CommandXboxController driver2Xbox = new CommandXboxController(1);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
   private final R2Jesu_ElevatorSubsystem m_R2Jesu_ElevatorSubsystem = new R2Jesu_ElevatorSubsystem();
   private final R2Jesu_AlgaeSubsystem m_R2Jesu_AlgaeSubsystem = new R2Jesu_AlgaeSubsystem();
-  
+  private final R2Jesu_CoralSubsystem m_R2Jesu_CoralSubsystem = new R2Jesu_CoralSubsystem();
+
   public RobotContainer() {
+    m_R2Jesu_AlgaeSubsystem.resetAlgaeEncoder();
+    m_R2Jesu_ElevatorSubsystem.resetElevatorEncoder();
     configureBindings();
   }
 
@@ -40,11 +47,13 @@ public class RobotContainer {
         () ->  -driverXbox.getRightX(),
         () -> -driverXbox.getLeftX()));
 
-    driverXbox.button(2).onTrue(new R2Jesu_ElevatorToNextPositionCommand(m_R2Jesu_ElevatorSubsystem));
-    driverXbox.button(1).onTrue(new R2Jesu_ElevatorToPriorPositionCommand(m_R2Jesu_ElevatorSubsystem));
-    driverXbox.button(4).onTrue(new R2Jesu_AlgaeToNextPositionCommand(m_R2Jesu_AlgaeSubsystem));
-    driverXbox.button(3).onTrue(new R2Jesu_AlgaeToPriorPositionCommand(m_R2Jesu_AlgaeSubsystem));
-    
+    driver2Xbox.povUp().onTrue(new R2Jesu_ElevatorToNextPositionCommand(m_R2Jesu_ElevatorSubsystem));
+    driver2Xbox.povDown().onTrue(new R2Jesu_ElevatorToPriorPositionCommand(m_R2Jesu_ElevatorSubsystem));
+    driver2Xbox.leftTrigger().whileTrue(new R2Jesu_AlgaeRegurgitateCommand(m_R2Jesu_AlgaeSubsystem));
+    driver2Xbox.button(5).whileTrue(new R2Jesu_AlgaeIngestCommand(m_R2Jesu_AlgaeSubsystem));
+    driver2Xbox.rightTrigger().whileTrue(new R2Jesu_AlgaeLowerCommand(m_R2Jesu_AlgaeSubsystem));
+    driver2Xbox.button(6).whileTrue(new R2Jesu_AlgaeRaiseCommand(m_R2Jesu_AlgaeSubsystem));
+    driver2Xbox.button(2).onTrue(new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem));
   }
 
   public Command getAutonomousCommand() {

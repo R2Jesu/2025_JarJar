@@ -4,14 +4,11 @@
 
 package frc.robot.subsystems;
 
-import java.lang.Math;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,13 +19,11 @@ public class R2Jesu_AlgaeSubsystem extends SubsystemBase {
 
   private Encoder algaeEncoder = new Encoder(5,6, true, CounterBase.EncodingType.k4X);
   private TalonSRX algae1 = new TalonSRX(11);
-  private int currentPosition=0;
-  private int targetPosition=0;
-  private double algaeStops[] = {0.0, 50.0, 100.0, 150.0};
-  private PIDController m_algaeController = new PIDController(.005, 0.0, 0.0, 0.01); //p 1.5
-  private PIDController m_algaeDownController = new PIDController(.005, 0.0, 0.0, 0.01); //p 1.5
-  private double pidOutput;
-  private double downpidOutput;
+  private TalonSRX algaeWheels = new TalonSRX(12);
+  double encoderMax=300.0;
+  double encoderMin=10.0;
+  int thiswaycount=0;
+  int thatwaycount=0;
   
   /** Creates a new R2Jesu_AlgaeSubsystem. */
 
@@ -66,105 +61,68 @@ public class R2Jesu_AlgaeSubsystem extends SubsystemBase {
      * this may need to take in a speed and the PID logic for a raise to x level with
      * the PID slowing the speed on approach
      */
+
+    //This motor is reversed so then this logic is as well
+    SmartDashboard.putNumber("MoveAlgaeArmSpeed", speed);
     algae1.set(ControlMode.PercentOutput, speed);
+    
+/*     if ((encoderMax > algaeEncoder.getDistance()) && speed < 0)
+    {
+      System.out.println("Go this way");
+      System.out.println(thiswaycount++);
+      algae1.set(ControlMode.PercentOutput, speed);
+    }
+    else if ((algaeEncoder.getDistance() > encoderMin) && speed > 0)
+    {
+      System.out.printf("Go that way");
+      System.out.println(thatwaycount++);
+      algae1.set(ControlMode.PercentOutput, speed);
+    } */
   }
 
-  public void raiseAlgae(double speed) {
-
-  /* raise the algae which will set the motor in the proper direction to raise
-   * this may need to take in a speed and the PID logic for a raise to x level with
-   * the PID slowing the speed on approach
-   */
-  algae1.set(ControlMode.PercentOutput, speed);
-}  
-
-public void lowerAlgae(double speed) {
+public void ingestAlgae(double speed) {
   /* lower the algae which will set the motor in the proper direction to lower
    * this may need to take in a speed and the PID logic for a lower to x level with
    * the PID slowing the speed on approach
    */
-  algae1.set(ControlMode.PercentOutput, -speed);
+  algaeWheels.set(ControlMode.PercentOutput, speed);
 
 } 
 
-public void gotoPostition(int position) {
-  /* This may take in a position on the reef representing a coral height
-   * Then it will determine our current position and raise or lower to go to requested
-   * This is the one that would read the pulses and determine when to stop the call
-   * Will likely use a PID to set speed
-  */
-  targetPosition=position;
+public void regurgitateAlgae(double speed) {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  algaeWheels.set(ControlMode.PercentOutput, -speed);
 
-} 
+}
 
-public void gotoNextPostition() {
-  /* This may take in a position on the reef representing a coral height
-   * Then it will determine our current position and raise or lower to go to requested
-   * This is the one that would read the pulses and determine when to stop the call
-   * Will likely use a PID to set speed
-  */
-  System.out.println("next");
-  if (targetPosition < algaeStops.length - 1)
-  {
-     targetPosition=targetPosition + 1;
-  }
+public double getAlgaeEncoder() {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  return algaeEncoder.getDistance();
 
-} 
+}
 
-public void gotoPriorPostition() {
-  /* This may take in a position on the reef representing a coral height
-   * Then it will determine our current position and raise or lower to go to requested
-   * This is the one that would read the pulses and determine when to stop the call
-   * Will likely use a PID to set speed
-  */
-  System.out.println("prior");
-  if (targetPosition > 0)
-  {
-     targetPosition=targetPosition - 1;
-  }
+public void resetAlgaeEncoder() {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  algaeEncoder.reset();
 
-} 
+}
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     //System.out.println("periodic");
 
-  // To tuen it off when needed
-  //pidOutput=0;
-  downpidOutput = -(m_algaeDownController.calculate(algaeEncoder.getDistance(), algaeStops[targetPosition]));
-  pidOutput = -(m_algaeController.calculate(algaeEncoder.getDistance(), algaeStops[targetPosition])); 
-
-
-  if (targetPosition < currentPosition)
-  {
-      this.moveAlgae(downpidOutput);
-  }
-  else if (targetPosition > currentPosition)
-  {
-    this.moveAlgae(pidOutput);
-  }
-  else
-  {
-    if (currentPosition == 0)
-    {
-      pidOutput = 0; 
-      algaeEncoder.reset();
-    }
-    this.moveAlgae(pidOutput);
-  } 
-
-  if (Math.abs(algaeEncoder.getDistance() - algaeStops[targetPosition]) < 25)
-  {
-    currentPosition=targetPosition;
-  }
-    
     SmartDashboard.putNumber("Algaeencoderdistance", algaeEncoder.getDistance());
-    SmartDashboard.putNumber("AlgaecurrentPosition", currentPosition);
-    SmartDashboard.putNumber("AlgaetargetPosition", targetPosition);
-    SmartDashboard.putNumber("AlgaepidOutput", pidOutput);
-    SmartDashboard.putNumber("AlgaetargetDistance", algaeStops[targetPosition]);
-    
+   
   }
 
   @Override

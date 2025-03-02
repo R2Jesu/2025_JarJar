@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import java.lang.Math;
-import org.photonvision.targeting.proto.TargetCornerProto;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -70,13 +69,13 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
      * this may need to take in a speed and the PID logic for a raise to x level with
      * the PID slowing the speed on approach
      */
-    if (speed > .35)
+    if (speed > .25)
     {
-      speed = .35;
+      speed = .25;
     }
-    if (speed < -.2)
+    if (speed < -.15)
     {
-      speed = -.2;
+      speed = -.15;
     }
 
     elevator1.set(speed);
@@ -122,7 +121,7 @@ public void gotoNextPostition() {
    * This is the one that would read the pulses and determine when to stop the call
    * Will likely use a PID to set speed
   */
-  System.out.println("next");
+
   if (targetPosition < elevatorStops.length - 1)
   {
      targetPosition=targetPosition + 1;
@@ -136,13 +135,22 @@ public void gotoPriorPostition() {
    * This is the one that would read the pulses and determine when to stop the call
    * Will likely use a PID to set speed
   */
-  System.out.println("prior");
+
   if (targetPosition > 0)
   {
      targetPosition=targetPosition - 1;
   }
 
 } 
+
+public void resetElevatorEncoder() {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  elevatorEncoder.reset();
+
+}
 
   @Override
   public void periodic() {
@@ -176,7 +184,7 @@ public void gotoPriorPostition() {
     if (currentPosition == 0)
     {
       pidOutput = 0;
-      elevatorEncoder.reset();
+      resetElevatorEncoder();
     }
     this.moveElevator(pidOutput);
   } 
