@@ -43,9 +43,9 @@ public class RobotContainer {
 
   private void configureBindings() {
     drivebase.setDefaultCommand(
-      drivebase.driveCommand(() -> -driverXbox.getRightY(),
-        () ->  -driverXbox.getRightX(),
-        () -> -driverXbox.getLeftX()));
+      drivebase.driveCommand(() -> driverXbox.getRightY(),
+        () ->  driverXbox.getRightX(),
+        () -> driverXbox.getLeftX()));
 
     driver2Xbox.povUp().onTrue(new R2Jesu_ElevatorToNextPositionCommand(m_R2Jesu_ElevatorSubsystem));
     driver2Xbox.povDown().onTrue(new R2Jesu_ElevatorToPriorPositionCommand(m_R2Jesu_ElevatorSubsystem));
