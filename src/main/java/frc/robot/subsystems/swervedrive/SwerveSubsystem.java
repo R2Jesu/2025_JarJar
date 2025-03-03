@@ -7,7 +7,7 @@ package frc.robot.subsystems.swervedrive;
 import static edu.wpi.first.units.Units.Meter;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.FollowPathCommand;
+//import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.config.PIDConstants;
@@ -22,7 +22,7 @@ import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.math.VecBuilder;
+//import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -32,7 +32,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.measure.MutAngularVelocity;
+//import edu.wpi.first.units.measure.MutAngularVelocity;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 //import edu.wpi.first.wpilibj.SPI;
@@ -140,7 +140,7 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   public void updateVisionOdometry(){
-    MutAngularVelocity angVelo;
+/*     MutAngularVelocity angVelo;
     boolean rejectUpdate = false;
     LimelightHelpers.SetRobotOrientation("limelight",swerveDrive.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
     LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
@@ -162,16 +162,25 @@ public class SwerveSubsystem extends SubsystemBase
     } 
     else {
       //SmartDashboard.putString("Update Odometry", "no");
-    }
+    } */
   }
-
+  
   @Override
   public void periodic()
   {
     // When vision is enabled we must manually update odometry in SwerveDrive
-    updateVisionOdometry();
+    /* updateVisionOdometry(); */
     SmartDashboard.putNumber("Heading: ", getHeading().getDegrees());
-    SmartDashboard.putNumber("tx: ", LimelightHelpers.getTX("limelight"));
+    swervelib.SwerveModule mymodules[] = swerveDrive.getModules(); 
+    SmartDashboard.putNumber("Offset 1", mymodules[0].getAbsolutePosition());
+    SmartDashboard.putNumber("Offset 2", mymodules[1].getAbsolutePosition());
+    SmartDashboard.putNumber("Offset 3", mymodules[2].getAbsolutePosition());
+    SmartDashboard.putNumber("Offset 4", mymodules[3].getAbsolutePosition());
+    SmartDashboard.putNumber("Raw Offset 1", mymodules[0].getAbsoluteEncoder().getAbsolutePosition());
+    SmartDashboard.putNumber("Raw Offset 2", mymodules[1].getAbsoluteEncoder().getAbsolutePosition());
+    SmartDashboard.putNumber("RawOffset 3", mymodules[2].getAbsoluteEncoder().getAbsolutePosition());
+    SmartDashboard.putNumber("Raw Offset 4", mymodules[3].getAbsoluteEncoder().getAbsolutePosition());
+    //SmartDashboard.putNumber("tx: ", LimelightHelpers.getTX("limelight"));
   }
 
   @Override
@@ -320,7 +329,7 @@ public class SwerveSubsystem extends SubsystemBase
    */
 
 
-     public Command aimAtTarget()
+/*      public Command aimAtTarget()
   {
     return run(() -> {
       if (LimelightHelpers.getFiducialID("limelight") == 1)
@@ -332,7 +341,7 @@ public class SwerveSubsystem extends SubsystemBase
         
       }
     });
-  }
+  } */
 
   /**
    * Get the path follower with events.
