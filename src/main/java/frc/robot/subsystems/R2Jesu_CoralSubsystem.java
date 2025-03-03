@@ -60,13 +60,19 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     //System.out.println("periodic");
-    if (!backSensor.get() && !frontSensor.get() && !overrideSensor) {
+
+    if (backSensor.get() && !frontSensor.get() && !overrideSensor) {
       coralLeft.set(ControlMode.PercentOutput, 0.0);
       coralRight.set(ControlMode.PercentOutput, -0.0);
     } else {
-      coralLeft.set(ControlMode.PercentOutput, 0.50);
-      coralRight.set(ControlMode.PercentOutput, -0.50);
+      coralLeft.set(ControlMode.PercentOutput, 0.6);
+      coralRight.set(ControlMode.PercentOutput, -0.6);
     }
+
+    if (backSensor.get() && frontSensor.get() && !(R2Jesu_ElevatorSubsystem.getElevatorLevel() == 0)) {
+      coralLeft.set(ControlMode.PercentOutput, 0.0);
+      coralRight.set(ControlMode.PercentOutput, -0.0);
+    }  
 
     if (frontSensor.get()) {
       overrideSensor=false;
@@ -74,6 +80,7 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
   
     SmartDashboard.putBoolean("BackSensor", backSensor.get());
     SmartDashboard.putBoolean("FrontSensor", frontSensor.get());
+    SmartDashboard.putBoolean("Override", overrideSensor);
     
   }
 

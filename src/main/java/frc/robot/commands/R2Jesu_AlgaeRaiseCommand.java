@@ -39,7 +39,7 @@ public class R2Jesu_AlgaeRaiseCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.moveAlgae(-.40);
+    m_subsystem.moveAlgae(-.50);
   }
   
   // Called once the command ends or is interrupted.

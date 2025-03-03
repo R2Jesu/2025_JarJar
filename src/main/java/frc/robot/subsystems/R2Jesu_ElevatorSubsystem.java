@@ -23,11 +23,11 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
   private SparkMax elevator1 = new SparkMax(9, MotorType.kBrushless);
   private SparkMax elevator2 = new SparkMax(10, MotorType.kBrushless);
   private Encoder elevatorEncoder = new Encoder(1,2, true, CounterBase.EncodingType.k4X);
-  private int currentPosition=0;
+  private static int currentPosition=0;
   private int targetPosition=0;
-  private double elevatorStops[] = {0.0, 500.0, 1000.0, 1500.0};
-  private PIDController m_elevatorController = new PIDController(.0015, 0.0, 0.0, 0.01); //p 1.5
-  private PIDController m_elevatorDownController = new PIDController(.0005, 0.0, 0.0, 0.01); //p 1.5
+  private double elevatorStops[] = {0.0, 3.0, 11.0, 25};
+  private PIDController m_elevatorController = new PIDController(.15, 0.0, 0.0, 0.01); //p 1.5
+  private PIDController m_elevatorDownController = new PIDController(.05, 0.0, 0.0, 0.01); //p 1.5
   private double pidOutput;
   private double downpidOutput;
   private DigitalInput elevatorLimit = new DigitalInput(8);
@@ -149,6 +149,16 @@ public void resetElevatorEncoder() {
    * the PID slowing the speed on approach
    */
   elevatorEncoder.reset();
+  elevatorEncoder.setDistancePerPulse(1.0 / 2048.0 * 2.0 * 3.14159 * (1.76 / 2));
+
+}
+
+public static int getElevatorLevel() {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  return currentPosition;
 
 }
 
@@ -189,7 +199,7 @@ public void resetElevatorEncoder() {
     this.moveElevator(pidOutput);
   } 
 
-  if (Math.abs(elevatorEncoder.getDistance() - elevatorStops[targetPosition]) < 25)
+  if (Math.abs(elevatorEncoder.getDistance() - elevatorStops[targetPosition]) < 1)
   {
     currentPosition=targetPosition;
   }
