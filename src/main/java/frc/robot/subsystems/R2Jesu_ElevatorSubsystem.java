@@ -153,6 +153,21 @@ public void resetElevatorEncoder() {
 
 }
 
+public Boolean targetiscurrent() {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  if (currentPosition==targetPosition) {
+    return true;
+  }
+  else {
+    return false;
+  }
+
+
+}
+
 public static int getElevatorLevel() {
   /* lower the algae which will set the motor in the proper direction to lower
    * this may need to take in a speed and the PID logic for a lower to x level with
@@ -199,7 +214,7 @@ public static int getElevatorLevel() {
     this.moveElevator(pidOutput);
   } 
 
-  if (Math.abs(elevatorEncoder.getDistance() - elevatorStops[targetPosition]) < 1)
+  if (Math.abs(elevatorEncoder.getDistance() - elevatorStops[targetPosition]) < .50)
   {
     currentPosition=targetPosition;
   }

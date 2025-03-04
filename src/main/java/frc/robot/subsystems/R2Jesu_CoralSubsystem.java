@@ -56,6 +56,15 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
     overrideSensor=true;
   }
 
+  public Boolean hasReleased() {
+    if (overrideSensor == false) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
