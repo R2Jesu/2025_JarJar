@@ -214,7 +214,7 @@ public static int getElevatorLevel() {
     this.moveElevator(pidOutput);
   } 
 
-  if (Math.abs(elevatorEncoder.getDistance() - elevatorStops[targetPosition]) < .25)
+  if (Math.abs(elevatorEncoder.getDistance() - elevatorStops[targetPosition]) < .50)
   {
     currentPosition=targetPosition;
   }
