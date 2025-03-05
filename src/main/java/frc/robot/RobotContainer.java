@@ -6,6 +6,11 @@ package frc.robot;
 
 import java.io.File;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.events.EventTrigger;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -39,10 +44,25 @@ public class RobotContainer {
   private final R2Jesu_AlgaeSubsystem m_R2Jesu_AlgaeSubsystem = new R2Jesu_AlgaeSubsystem();
   private final R2Jesu_CoralSubsystem m_R2Jesu_CoralSubsystem = new R2Jesu_CoralSubsystem();
 
+  private final SendableChooser<Command> autoChooser;
+  
+
   public RobotContainer() {
     m_R2Jesu_AlgaeSubsystem.resetAlgaeEncoder();
     m_R2Jesu_ElevatorSubsystem.resetElevatorEncoder();
+
+    
     configureBindings();
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
+    new EventTrigger("R2Jesu_AlignLeft").whileTrue(Commands.print("move to left with april tags"));
+    new EventTrigger("R2Jesu_PlaceCoral").whileTrue(Commands.print("place coral at a level"));
+    new EventTrigger("R2Jesu_TakeAlgae").whileTrue(Commands.print("remove algae from reef"));
+    new EventTrigger("R2Jesu_PlaceAlgae").whileTrue(Commands.print("place algae in the processor"));
+    
   }
 
   private void configureBindings() {
@@ -75,6 +95,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    //return Commands.print("No autonomous command configured");
+    return autoChooser.getSelected();
   }
 }
