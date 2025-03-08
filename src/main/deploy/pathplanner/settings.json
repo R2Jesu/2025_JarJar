@@ -2,12 +2,20 @@
   "robotWidth": 0.84453,
   "robotLength": 1.016,
   "holonomicMode": true,
-  "pathFolders": [],
-  "autoFolders": [],
-  "defaultMaxVel": 0.75,
-  "defaultMaxAccel": 0.4,
-  "defaultMaxAngVel": 45.0,
-  "defaultMaxAngAccel": 90.0,
+  "pathFolders": [
+    "2110",
+    "2211",
+    "176"
+  ],
+  "autoFolders": [
+    "Four Coral",
+    "One Coral",
+    "Three Coral"
+  ],
+  "defaultMaxVel": 3.0,
+  "defaultMaxAccel": 3.0,
+  "defaultMaxAngVel": 90.0,
+  "defaultMaxAngAccel": 180.0,
   "defaultNominalVoltage": 12.0,
   "robotMass": 52.6167,
   "robotMOI": 5.0,

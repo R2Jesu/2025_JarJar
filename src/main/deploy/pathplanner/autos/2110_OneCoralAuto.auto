@@ -7,13 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2110_TakeandPlace"
+            "pathName": "2110_TakeCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2110_OutOfWay"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "One Coral",
   "choreoAuto": false
 }
