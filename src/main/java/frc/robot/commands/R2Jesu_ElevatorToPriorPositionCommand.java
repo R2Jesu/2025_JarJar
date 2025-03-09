@@ -33,6 +33,7 @@ public class R2Jesu_ElevatorToPriorPositionCommand extends Command {
   @Override
   public void initialize() {
     m_subsystem.gotoPriorPostition();
+    m_finish=false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

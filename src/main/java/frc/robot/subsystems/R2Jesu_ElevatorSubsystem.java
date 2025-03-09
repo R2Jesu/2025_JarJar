@@ -26,7 +26,7 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
   private SparkMax elevator2 = new SparkMax(10, MotorType.kBrushless);
   private Encoder elevatorEncoder = new Encoder(1,2, true, CounterBase.EncodingType.k4X);
   private static int currentPosition=0;
-  private int targetPosition=0;
+  private static int targetPosition=0;
   private double elevatorStops[] = {0.0, 3.0, 11.0, 25};
   private PIDController m_elevatorController = new PIDController(.15, 0.0, 0.0, 0.01); //p 1.5
   private PIDController m_elevatorDownController = new PIDController(.05, 0.0, 0.0, 0.01); //p 1.5

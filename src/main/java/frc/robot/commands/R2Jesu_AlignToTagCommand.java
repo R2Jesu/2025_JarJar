@@ -17,7 +17,7 @@ import frc.robot.utilities.LimelightHelpers;
 public class R2Jesu_AlignToTagCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private boolean sideL;
-  private Timer dontSeeTagTimer, stopTimer;;
+  private Timer dontSeeTagTimer, stopTimer, overallTimer;
   private PIDController xControl = new PIDController(1.5, 0, .5);
   private PIDController yControl = new PIDController(2, 0, 0);  
   private PIDController zControl = new PIDController(.058, 0, .0);
@@ -45,6 +45,8 @@ public class R2Jesu_AlignToTagCommand extends Command {
     this.stopTimer.start();
     this.dontSeeTagTimer = new Timer();
     this.dontSeeTagTimer.start();
+    this.overallTimer = new Timer();
+    this.overallTimer.start();
     zControl.setSetpoint(0.0);
     zControl.setTolerance(.5);
 
@@ -76,8 +78,8 @@ public class R2Jesu_AlignToTagCommand extends Command {
       SmartDashboard.putNumber("tx:", LimelightHelpers.getTX("limelight"));
       
 
-      m_subsystem.drive(new Translation2d(yControl.getError() < 0.5 ? xSpeed : 0, ySpeed), rotValue, false);
-      //m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
+      //m_subsystem.drive(new Translation2d(yControl.getError() < 0.5 ? xSpeed : 0, ySpeed), rotValue, false);
+      m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
 
 
       if (!zControl.atSetpoint() ||
@@ -100,7 +102,7 @@ public class R2Jesu_AlignToTagCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return this.dontSeeTagTimer.hasElapsed(5.0) ||
-        stopTimer.hasElapsed(0.3);
+    return this.dontSeeTagTimer.hasElapsed(1.0) ||
+        stopTimer.hasElapsed(0.3) || overallTimer.hasElapsed(7.0);
   }
 }
