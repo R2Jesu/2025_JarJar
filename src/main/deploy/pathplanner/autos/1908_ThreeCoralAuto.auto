@@ -7,37 +7,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2211b_PlaceCoral"
+            "pathName": "1908b_PlaceCoral"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2211_ToRCS"
+            "pathName": "1908_GoToLCS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2111a_PlaceCoralFromRCS"
+            "pathName": "1908a_PlaceCoralFromLCS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2211_ToRCS"
+            "pathName": "1908_GoToLCS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1706b_PlaceCoralFromRCS"
+            "pathName": "1807_PlaceCoralFromLCS"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Four Coral",
+  "folder": "Three Coral",
   "choreoAuto": false
 }

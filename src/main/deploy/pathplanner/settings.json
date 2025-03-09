@@ -3,9 +3,12 @@
   "robotLength": 1.016,
   "holonomicMode": true,
   "pathFolders": [
+    "1706",
+    "1807",
+    "1908",
+    "2009",
     "2110",
-    "2211",
-    "176"
+    "2211"
   ],
   "autoFolders": [
     "Four Coral",
@@ -15,7 +18,7 @@
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 90.0,
-  "defaultMaxAngAccel": 180.0,
+  "defaultMaxAngAccel": 135.0,
   "defaultNominalVoltage": 12.0,
   "robotMass": 52.6167,
   "robotMOI": 5.0,

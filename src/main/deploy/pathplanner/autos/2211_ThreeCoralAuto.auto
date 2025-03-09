@@ -7,31 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "2211_TakeCoral"
+            "pathName": "2211b_PlaceCoral"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2211_ToRCoralStation"
+            "pathName": "2211_ToRCS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "176a_PlaceCoralFromCS"
+            "pathName": "1706a_PlaceCoralFromCS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "176_GoToCoralStation"
+            "pathName": "1706_GoToRCS"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "176b_PlaceCoralFromCS"
+            "pathName": "1706b_PlaceCoralFromRCS"
           }
         }
       ]

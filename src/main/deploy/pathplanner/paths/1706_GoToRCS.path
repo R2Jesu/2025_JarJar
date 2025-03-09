@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.008108108108107,
-        "y": 4.034881756756757
+        "x": 3.6957770270270265,
+        "y": 2.710726351351351
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.049118127864698,
-        "y": 5.110521718149181
+        "x": 2.881481538263745,
+        "y": 1.952528778534287
       },
       "isLocked": false,
-      "linkedName": "2110"
+      "linkedName": "1706"
     },
     {
       "anchor": {
-        "x": 6.235388513513514,
-        "y": 7.365033783783783
+        "x": 1.7391891891891893,
+        "y": 0.8035472972972957
       },
       "prevControl": {
-        "x": 6.191104456135112,
-        "y": 6.557104936440095
+        "x": 2.688975356528648,
+        "y": 1.616145277405331
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "coral station right"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "",
+      "name": "R2Jesu_SeeCoral",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
@@ -49,13 +49,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 51.60483549675404
   },
   "reversed": false,
-  "folder": "2110",
+  "folder": "1706",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 56.07020257793932
   },
   "useDefaultConstraints": true
 }

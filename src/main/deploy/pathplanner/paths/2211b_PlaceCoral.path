@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.008108108108107,
-        "y": 4.034881756756757
+        "x": 7.628716216216215,
+        "y": 1.8806587837837834
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.049118127864698,
-        "y": 5.110521718149181
+        "x": 6.584379504383241,
+        "y": 2.0130535905157405
       },
       "isLocked": false,
-      "linkedName": "2110"
+      "linkedName": "red start"
     },
     {
       "anchor": {
-        "x": 6.235388513513514,
-        "y": 7.365033783783783
+        "x": 5.306503378378378,
+        "y": 2.6217905405405393
       },
       "prevControl": {
-        "x": 6.191104456135112,
-        "y": 6.557104936440095
+        "x": 6.375110141107472,
+        "y": 2.3443531959397106
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "2211"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,13 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "",
+      "name": "R2Jesu_AlignB",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "R2Jesu_PlaceCoral",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
@@ -49,10 +55,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 121.29303899592016
   },
   "reversed": false,
-  "folder": "2110",
+  "folder": "2211",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
