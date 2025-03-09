@@ -172,7 +172,7 @@ public class SwerveSubsystem extends SubsystemBase
     double ourDist = (((double)12.0 - (double)13.0) / 
       (Math.tan(((double)0.0 + LimelightHelpers.getTY("limelight")) * 
       (3.1415926 / 180.00))));
-    if (ourDist <= 6 && ourDist >= 3) {
+    if (ourDist <= 22.5 && ourDist >= 16.5) {
       inDist=true;
     }
     else {

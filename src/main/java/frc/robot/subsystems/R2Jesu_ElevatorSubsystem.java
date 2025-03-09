@@ -235,7 +235,12 @@ public static int getElevatorLevel() {
     currentPosition=targetPosition;
   }
   
+  if (targetPosition == 3) {
     this.servoOut();
+  } else {
+    this.servoIn();
+  }
+
     SmartDashboard.putNumber("encoderdistance", elevatorEncoder.getDistance());
     SmartDashboard.putNumber("currentPosition", currentPosition);
     SmartDashboard.putNumber("targetPosition", targetPosition);

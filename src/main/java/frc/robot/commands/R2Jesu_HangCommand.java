@@ -40,7 +40,7 @@ public class R2Jesu_HangCommand extends Command {
   @Override
   public void execute() {
     if (m_subsystem.isHangerReleased()) {
-      m_subsystem.hang(.30);
+      m_subsystem.hang(.90);
     }
   }
   

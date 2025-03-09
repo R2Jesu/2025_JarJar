@@ -18,7 +18,7 @@ public class R2Jesu_AlignToTagCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private boolean sideL;
   private Timer dontSeeTagTimer, stopTimer;;
-  private PIDController xControl = new PIDController(2, 0, 0);
+  private PIDController xControl = new PIDController(1.5, 0, .5);
   private PIDController yControl = new PIDController(2, 0, 0);  
   private PIDController zControl = new PIDController(.058, 0, .0);
 
@@ -67,7 +67,7 @@ public class R2Jesu_AlignToTagCommand extends Command {
       dontSeeTagTimer.reset();
       double[] positions = LimelightHelpers.getCameraPose_TargetSpace("limelight");
 
-      double xSpeed = xControl.calculate(positions[1]);
+      double xSpeed = -xControl.calculate(positions[1]);
       SmartDashboard.putNumber("xspeed", xSpeed);
       double ySpeed = yControl.calculate(positions[0]);
       SmartDashboard.putNumber("yspeed", ySpeed);
@@ -76,8 +76,8 @@ public class R2Jesu_AlignToTagCommand extends Command {
       SmartDashboard.putNumber("tx:", LimelightHelpers.getTX("limelight"));
       
 
-      //m_subsystem.drive(new Translation2d(yControl.getError() < 0.5 ? xSpeed : 0, ySpeed), rotValue, false);
-      m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
+      m_subsystem.drive(new Translation2d(yControl.getError() < 0.5 ? xSpeed : 0, ySpeed), rotValue, false);
+      //m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
 
 
       if (!zControl.atSetpoint() ||
