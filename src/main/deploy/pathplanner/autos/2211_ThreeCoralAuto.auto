@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2211b_PlaceCoral"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2211_ToRCS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1706a_PlaceCoralFromCS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1706_GoToRCS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1706b_PlaceCoralFromRCS"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Three Coral",
+  "choreoAuto": false
+}

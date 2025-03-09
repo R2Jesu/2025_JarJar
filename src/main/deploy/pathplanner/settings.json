@@ -1,0 +1,43 @@
+{
+  "robotWidth": 0.84453,
+  "robotLength": 1.016,
+  "holonomicMode": true,
+  "pathFolders": [
+    "1706",
+    "1807",
+    "1908",
+    "2009",
+    "2110",
+    "2211"
+  ],
+  "autoFolders": [
+    "Four Coral",
+    "One Coral",
+    "Three Coral"
+  ],
+  "defaultMaxVel": 3.0,
+  "defaultMaxAccel": 3.0,
+  "defaultMaxAngVel": 90.0,
+  "defaultMaxAngAccel": 135.0,
+  "defaultNominalVoltage": 12.0,
+  "robotMass": 52.6167,
+  "robotMOI": 5.0,
+  "robotTrackwidth": 0.546,
+  "driveWheelRadius": 0.0508,
+  "driveGearing": 6.75,
+  "maxDriveSpeed": 4.602,
+  "driveMotorType": "NEO",
+  "driveCurrentLimit": 20.0,
+  "wheelCOF": 1.19,
+  "flModuleX": 0.362,
+  "flModuleY": 0.267,
+  "frModuleX": 0.362,
+  "frModuleY": -0.267,
+  "blModuleX": -0.362,
+  "blModuleY": 0.267,
+  "brModuleX": -0.362,
+  "brModuleY": -0.267,
+  "bumperOffsetX": 0.0,
+  "bumperOffsetY": 0.0,
+  "robotFeatures": []
+}

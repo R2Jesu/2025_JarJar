@@ -6,6 +6,11 @@ package frc.robot;
 
 import java.io.File;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.events.EventTrigger;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -45,10 +50,53 @@ public class RobotContainer {
   private final R2Jesu_CoralSubsystem m_R2Jesu_CoralSubsystem = new R2Jesu_CoralSubsystem();
   private final R2Jesu_HangerSubsystem m_R2Jesu_HangerSubsystem = new R2Jesu_HangerSubsystem();
 
+  private final SendableChooser<Command> autoChooser;
+  
+
   public RobotContainer() {
     m_R2Jesu_AlgaeSubsystem.resetAlgaeEncoder();
     m_R2Jesu_ElevatorSubsystem.resetElevatorEncoder();
+
+    
     configureBindings();
+
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+// Register the named commands from each subsystem that may be used in PathPlanner
+// NamedCommands.registerCommands(Drivetrain.getNamedCommands());
+
+// Capture Robot position, align to deposit coral on side A
+  new EventTrigger("R2Jesu_AlignA").whileTrue(new SequentialCommandGroup(  
+        Commands.print("COMMAND NEEDED: SAVE POSITION COORDS_VARIABLE"),
+//      new R2Jesu_AlignToTagCommand(drivebase, true),
+        Commands.print("Align to Side A-LEFT")
+        ));
+    
+// Capture Robot position, align to deposit coral on side B, take out print commands to execute
+  new EventTrigger("R2Jesu_AlignB").whileTrue(new SequentialCommandGroup(
+        Commands.print("COMMAND NEEDED: SAVE POSITION COORDS_VARIABLE"),
+//      new R2Jesu_AlignToTagCommand(drivebase, false),
+        Commands.print("Align to Side B-RIGHT")
+));
+
+// Raise elevator to deposit the coral on Level 4, deposit the coral, then lower the elevator and return to position
+  new EventTrigger("R2Jesu_PlaceCoral").whileTrue(new SequentialCommandGroup(
+      Commands.print("Raise Elevator to Level 4"),
+//    new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 4),
+      Commands.print("Release Coral"),
+//    new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem),
+      Commands.print("Lower back to floor"),
+//    new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0),
+      Commands.print("GOTO COORDS_VARIABLE")
+      ));
+
+// Get Coral from Coral Station and return to PathPlanner sequence.  
+// Not sure this is going to work to wait to get the coral. may need an onfalse, wait
+// example code: new EventTrigger("shoot note").and(new Trigger(exampleSubsystem::someCondition)).onTrue(Commands.print("shoot note");
+
+    new EventTrigger("R2Jesu_SeeCoral").and(m_R2Jesu_CoralSubsystem::R2Jesu_CoralCondition).onTrue(Commands.print("Coral Obtained"));
+    
   }
 
   private void configureBindings() {
@@ -87,6 +135,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    //return Commands.print("No autonomous command configured");
+    return autoChooser.getSelected();
   }
 }
