@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.hal.PWMConfigDataResult;
 
 
 
@@ -24,19 +26,23 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
   private SparkMax elevator2 = new SparkMax(10, MotorType.kBrushless);
   private Encoder elevatorEncoder = new Encoder(1,2, true, CounterBase.EncodingType.k4X);
   private static int currentPosition=0;
-  private int targetPosition=0;
+  private static int targetPosition=0;
   private double elevatorStops[] = {0.0, 3.0, 11.0, 25};
   private PIDController m_elevatorController = new PIDController(.15, 0.0, 0.0, 0.01); //p 1.5
   private PIDController m_elevatorDownController = new PIDController(.05, 0.0, 0.0, 0.01); //p 1.5
   private double pidOutput;
   private double downpidOutput;
   private DigitalInput elevatorLimit = new DigitalInput(8);
-  
+  private Servo myServo = new Servo(9);
+  private PWMConfigDataResult myResult;
+ 
   
   /** Creates a new R2Jesu_ElevatorSubsystem. */
 
   /** Here we will eventuall put the motor defintions that we need to control to raise and lower the elevator */
- 
+  public R2Jesu_ElevatorSubsystem() {
+    myServo.setBoundsMicroseconds(1950, 0, 0, 0, 1050);
+  }
 
 
   /**
@@ -153,6 +159,16 @@ public void resetElevatorEncoder() {
 
 }
 
+public void servoIn() {
+  myServo.setPosition(0.0);
+
+}
+
+public void servoOut() {
+  myServo.setPosition(1.0);
+
+}
+
 public Boolean targetiscurrent() {
   /* lower the algae which will set the motor in the proper direction to lower
    * this may need to take in a speed and the PID logic for a lower to x level with
@@ -218,13 +234,27 @@ public static int getElevatorLevel() {
   {
     currentPosition=targetPosition;
   }
-    
+  
+  if (targetPosition == 3) {
+    this.servoOut();
+  } else {
+    this.servoIn();
+  }
+
     SmartDashboard.putNumber("encoderdistance", elevatorEncoder.getDistance());
     SmartDashboard.putNumber("currentPosition", currentPosition);
     SmartDashboard.putNumber("targetPosition", targetPosition);
     SmartDashboard.putNumber("pidOutput", pidOutput);
     SmartDashboard.putNumber("downpidOutput", downpidOutput);
     SmartDashboard.putNumber("targetDistance", elevatorStops[targetPosition]);
+
+    myResult = myServo.getBoundsMicroseconds();
+    SmartDashboard.putNumber("Max", myResult.max);
+    SmartDashboard.putNumber("DeadbandMax", myResult.deadbandMax);
+    SmartDashboard.putNumber("Center", myResult.center);
+    SmartDashboard.putNumber("DeadbandMin", myResult.deadbandMin);
+    SmartDashboard.putNumber("Min", myResult.min);
+
     
   }
 
