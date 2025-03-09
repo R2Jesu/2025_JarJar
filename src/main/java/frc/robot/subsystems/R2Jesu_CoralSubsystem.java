@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class R2Jesu_CoralSubsystem extends SubsystemBase {
   private TalonSRX coralRight = new TalonSRX(13);
   private TalonSRX coralLeft = new TalonSRX(14);
+  private WPI_VictorSPX coralChute = new WPI_VictorSPX(16);
   private DigitalInput backSensor = new DigitalInput(11);
   private DigitalInput frontSensor = new DigitalInput(13);
   private Boolean overrideSensor=false;
@@ -56,6 +58,14 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
     overrideSensor=true;
   }
 
+  public void dropChute() {
+    coralChute.set(ControlMode.PercentOutput, -1.0);
+  }
+
+  public void stopChute() {
+    coralChute.set(ControlMode.PercentOutput, 0.0);
+  }
+
   public Boolean hasReleased() {
     if (overrideSensor == false) {
       return true;
@@ -74,8 +84,8 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
       coralLeft.set(ControlMode.PercentOutput, 0.0);
       coralRight.set(ControlMode.PercentOutput, -0.0);
     } else {
-      coralLeft.set(ControlMode.PercentOutput, 0.6);
-      coralRight.set(ControlMode.PercentOutput, -0.6);
+      coralLeft.set(ControlMode.PercentOutput, 0.5);
+      coralRight.set(ControlMode.PercentOutput, -0.5);
     }
 
     if (backSensor.get() && frontSensor.get() && !(R2Jesu_ElevatorSubsystem.getElevatorLevel() == 0)) {

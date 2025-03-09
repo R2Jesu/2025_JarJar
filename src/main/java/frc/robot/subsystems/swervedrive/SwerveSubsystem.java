@@ -22,7 +22,7 @@ import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
-//import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -32,7 +32,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
-//import edu.wpi.first.units.measure.MutAngularVelocity;
+import edu.wpi.first.units.measure.MutAngularVelocity;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 //import edu.wpi.first.wpilibj.SPI;
@@ -76,6 +76,7 @@ public class SwerveSubsystem extends SubsystemBase
    * AprilTag field layout.
    */
   private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
+  private boolean inDist;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -140,7 +141,7 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   public void updateVisionOdometry(){
-/*     MutAngularVelocity angVelo;
+    MutAngularVelocity angVelo;
     boolean rejectUpdate = false;
     LimelightHelpers.SetRobotOrientation("limelight",swerveDrive.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
     LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
@@ -156,31 +157,29 @@ public class SwerveSubsystem extends SubsystemBase
     if(limelightMeasurement.tagCount == 0){
       rejectUpdate = true;
     }
+
     if(!rejectUpdate){
       swerveDrive.addVisionMeasurement(limelightMeasurement.pose, limelightMeasurement.timestampSeconds, VecBuilder.fill(.7,.7,9999999));
-      //SmartDashboard.putString("Update Odometry", "yes");
     } 
-    else {
-      //SmartDashboard.putString("Update Odometry", "no");
-    } */
   }
   
   @Override
   public void periodic()
   {
     // When vision is enabled we must manually update odometry in SwerveDrive
-    /* updateVisionOdometry(); */
-    SmartDashboard.putNumber("Heading: ", getHeading().getDegrees());
-    swervelib.SwerveModule mymodules[] = swerveDrive.getModules(); 
-    SmartDashboard.putNumber("Offset 1", mymodules[0].getAbsolutePosition());
-    SmartDashboard.putNumber("Offset 2", mymodules[1].getAbsolutePosition());
-    SmartDashboard.putNumber("Offset 3", mymodules[2].getAbsolutePosition());
-    SmartDashboard.putNumber("Offset 4", mymodules[3].getAbsolutePosition());
-    SmartDashboard.putNumber("Raw Offset 1", mymodules[0].getAbsoluteEncoder().getAbsolutePosition());
-    SmartDashboard.putNumber("Raw Offset 2", mymodules[1].getAbsoluteEncoder().getAbsolutePosition());
-    SmartDashboard.putNumber("RawOffset 3", mymodules[2].getAbsoluteEncoder().getAbsolutePosition());
-    SmartDashboard.putNumber("Raw Offset 4", mymodules[3].getAbsoluteEncoder().getAbsolutePosition());
-    //SmartDashboard.putNumber("tx: ", LimelightHelpers.getTX("limelight"));
+    updateVisionOdometry();
+    //(Target height - camera height) / tan((camera angle + target offset angle from limelight)) * (PI / 180)))
+    double ourDist = (((double)12.0 - (double)13.0) / 
+      (Math.tan(((double)0.0 + LimelightHelpers.getTY("limelight")) * 
+      (3.1415926 / 180.00))));
+    if (ourDist <= 6 && ourDist >= 3) {
+      inDist=true;
+    }
+    else {
+      inDist=false;
+    }
+    SmartDashboard.putBoolean("inDsit", inDist);
+    SmartDashboard.putNumber("Distance", ourDist);
   }
 
   @Override
@@ -329,7 +328,7 @@ public class SwerveSubsystem extends SubsystemBase
    */
 
 
-/*      public Command aimAtTarget()
+  public Command aimAtTarget()
   {
     return run(() -> {
       if (LimelightHelpers.getFiducialID("limelight") == 1)
@@ -341,7 +340,20 @@ public class SwerveSubsystem extends SubsystemBase
         
       }
     });
-  } */
+  } 
+
+/*   public Command parallelToTag()
+  {
+    return run(() -> {
+      if (LimelightHelpers.getFiducialID("limelight") != 0)
+      {
+          drive(getTargetSpeeds(0.0,
+                                0.0,
+                                LimelightHelpers.getTargetPose3d_CameraSpace("limelight").toPose2d().getRotation())); 
+        
+      } 
+    });
+  }  */
 
   /**
    * Get the path follower with events.

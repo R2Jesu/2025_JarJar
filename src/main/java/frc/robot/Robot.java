@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -15,6 +17,17 @@ public class Robot extends TimedRobot {
 
   public Robot() {
     m_robotContainer = new RobotContainer();
+  }
+
+  @Override
+  public void robotInit() {
+    CameraServer.startAutomaticCapture();
+/*     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+    m_chooser.addOption("Shoot leave", kShootLeaveAuto);
+    m_chooser.addOption("Shoot leave shoot", kShootLeaveShootAuto);
+    m_chooser.addOption("Shoot leave off center", kShootLeaveOffCenterAuto);
+    m_chooser.addOption("Shoot leave shoot off center", kShootLeaveShootOffCenterAuto);
+    SmartDashboard.putData("Auto choices", m_chooser); */
   }
 
   @Override
