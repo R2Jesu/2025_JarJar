@@ -27,6 +27,12 @@
           "data": {
             "pathName": "1706_GoToRCS"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1807_PlaceCoralFromRCS"
+          }
         }
       ]
     }
