@@ -57,11 +57,40 @@ public class RobotContainer {
     autoChooser = AutoBuilder.buildAutoChooser();
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
+// buttonBoard.button(1).onTrue(new SequentialCommandGroup(new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 3),
+//    new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem), new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0)));
+ 
+// RECORD WHERE YOU ARE, THEN ALIGN TO SIDE A TO DEPOSIT CORAL
+// key question - will elevatorto positiion take A or B as a variable, if so this changes to just recording the position
+  new EventTrigger("R2Jesu_AlignA").whileTrue(new SequentialCommandGroup(
+      Commands.print("record position"),
+      Commands.print("move side A with april tags")
+      ));
+    
+// RECORD WHERE YOU ARE, THEN ALIGN TO SIDE B TO DEPOSIT CORAL
+// key question - will elevatorto positiion take A or B as a variable, if so this changes to just recording the position
+  new EventTrigger("R2Jesu_AlignB").whileTrue(new SequentialCommandGroup(
+      Commands.print("record position COORDS"),
+      Commands.print("move side B with april tags")
+      ));
 
-    new EventTrigger("R2Jesu_AlignLeft").whileTrue(Commands.print("move to left with april tags"));
-    new EventTrigger("R2Jesu_PlaceCoral").whileTrue(Commands.print("place coral at a level"));
-    new EventTrigger("R2Jesu_TakeAlgae").whileTrue(Commands.print("remove algae from reef"));
-    new EventTrigger("R2Jesu_PlaceAlgae").whileTrue(Commands.print("place algae in the processor"));
+// PLACE CORAL AT THE AUTOLEVEL DETERMINED AT THE BEGINING OF AUTO, LOWER THE ELEVATOR AND MOVE BACK TO THE LAST AUTO POSITION
+// key question - will elevatorto positiion take A or B as a variable, if so this changes to TWO TRIGGERS, ONE A AND ONE B
+  new EventTrigger("R2Jesu_PlaceCoral").whileTrue(new SequentialCommandGroup(
+      Commands.print("new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 4, A"),
+      Commands.print("new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem)"),
+      Commands.print("new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0, 0"),
+      Commands.print("GOTO COORDS_VARIABLE")
+      ));
+
+// RAISE ELEVATOR TO GET THE CORAL, GET IT AND RETURN TO TRAVEL LEVEL AND PREVIOUS POSITION
+// ASSUMES _ElevatorToPosition takes a "side" Parameter
+    new EventTrigger("R2Jesu_SeeCoral").whileTrue(new SequentialCommandGroup(
+      Commands.print("GET_DEPARTURE_COORDS_FROM_CURRENT"),
+      Commands.print("Get Coral from Processor"),
+      Commands.print("new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0, 0"),
+      Commands.print("GOTO (DEPARTURE_COORDS)")
+      ));
     
   }
 

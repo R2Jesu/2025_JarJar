@@ -8,7 +8,7 @@ import frc.robot.subsystems.R2Jesu_ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** An R2Jesu_Elevator command that uses an R2Jesu_Elevatorer subsystem. */
+/** An R2Jesu_Elevator command that uses an R2Jesu_Elevator subsystem. */
 public class R2Jesu_ElevatorToPriorPositionCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
