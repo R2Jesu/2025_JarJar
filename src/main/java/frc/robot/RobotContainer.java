@@ -57,40 +57,39 @@ public class RobotContainer {
     autoChooser = AutoBuilder.buildAutoChooser();
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
-// buttonBoard.button(1).onTrue(new SequentialCommandGroup(new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 3),
-//    new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem), new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0)));
- 
-// RECORD WHERE YOU ARE, THEN ALIGN TO SIDE A TO DEPOSIT CORAL
-// key question - will elevatorto positiion take A or B as a variable, if so this changes to just recording the position
-  new EventTrigger("R2Jesu_AlignA").whileTrue(new SequentialCommandGroup(
-      Commands.print("record position"),
-      Commands.print("move side A with april tags")
-      ));
-    
-// RECORD WHERE YOU ARE, THEN ALIGN TO SIDE B TO DEPOSIT CORAL
-// key question - will elevatorto positiion take A or B as a variable, if so this changes to just recording the position
-  new EventTrigger("R2Jesu_AlignB").whileTrue(new SequentialCommandGroup(
-      Commands.print("record position COORDS"),
-      Commands.print("move side B with april tags")
-      ));
+// Register the named commands from each subsystem that may be used in PathPlanner
+// NamedCommands.registerCommands(Drivetrain.getNamedCommands());
 
-// PLACE CORAL AT THE AUTOLEVEL DETERMINED AT THE BEGINING OF AUTO, LOWER THE ELEVATOR AND MOVE BACK TO THE LAST AUTO POSITION
-// key question - will elevatorto positiion take A or B as a variable, if so this changes to TWO TRIGGERS, ONE A AND ONE B
+// Capture Robot position, align to deposit coral on side A
+  new EventTrigger("R2Jesu_AlignA").whileTrue(new SequentialCommandGroup(  
+        Commands.print("COMMAND NEEDED: SAVE POSITION COORDS_VARIABLE"),
+//      new R2Jesu_AlignToTagCommand(drivebase, true),
+        Commands.print("Align to Side A-LEFT")
+        ));
+    
+// Capture Robot position, align to deposit coral on side B, take out print commands to execute
+  new EventTrigger("R2Jesu_AlignB").whileTrue(new SequentialCommandGroup(
+        Commands.print("COMMAND NEEDED: SAVE POSITION COORDS_VARIABLE"),
+//      new R2Jesu_AlignToTagCommand(drivebase, false),
+        Commands.print("Align to Side B-RIGHT")
+));
+
+// Raise elevator to deposit the coral on Level 4, deposit the coral, then lower the elevator and return to position
   new EventTrigger("R2Jesu_PlaceCoral").whileTrue(new SequentialCommandGroup(
-      Commands.print("new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 4, A"),
-      Commands.print("new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem)"),
-      Commands.print("new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0, 0"),
+      Commands.print("Raise Elevator to Level 4"),
+//    new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 4),
+      Commands.print("Release Coral"),
+//    new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem),
+      Commands.print("Lower back to floor"),
+//    new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0),
       Commands.print("GOTO COORDS_VARIABLE")
       ));
 
-// RAISE ELEVATOR TO GET THE CORAL, GET IT AND RETURN TO TRAVEL LEVEL AND PREVIOUS POSITION
-// ASSUMES _ElevatorToPosition takes a "side" Parameter
-    new EventTrigger("R2Jesu_SeeCoral").whileTrue(new SequentialCommandGroup(
-      Commands.print("GET_DEPARTURE_COORDS_FROM_CURRENT"),
-      Commands.print("Get Coral from Processor"),
-      Commands.print("new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0, 0"),
-      Commands.print("GOTO (DEPARTURE_COORDS)")
-      ));
+// Get Coral from Coral Station and return to PathPlanner sequence.  
+// Not sure this is going to work to wait to get the coral. may need an onfalse, wait
+// example code: new EventTrigger("shoot note").and(new Trigger(exampleSubsystem::someCondition)).onTrue(Commands.print("shoot note");
+
+    new EventTrigger("R2Jesu_SeeCoral").and(m_R2Jesu_CoralSubsystem::R2Jesu_CoralCondition).onTrue(Commands.print("Coral Obtained"));
     
   }
 
