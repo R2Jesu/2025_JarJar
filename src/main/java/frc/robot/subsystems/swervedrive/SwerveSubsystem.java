@@ -62,7 +62,9 @@ import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 import frc.robot.utilities.LimelightHelpers;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.ConfigurationFailedException;
 
 public class SwerveSubsystem extends SubsystemBase
 {
@@ -77,6 +79,7 @@ public class SwerveSubsystem extends SubsystemBase
    */
   private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
   private boolean inDist;
+  private LaserCan lc = new LaserCan(26);
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -123,6 +126,14 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.pushOffsetsToEncoders(); // Set the absolute encoder to be used over the internal encoder and push the offsets onto it. Throws warning if not possible
 
     setupPathPlanner();
+
+    try {
+      lc.setRangingMode(LaserCan.RangingMode.SHORT);
+      lc.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
+      lc.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+    } catch (ConfigurationFailedException e) {
+      System.out.println("Configuration failed! " + e);
+    }
   }
 
   /**
@@ -167,19 +178,18 @@ public class SwerveSubsystem extends SubsystemBase
   public void periodic()
   {
     // When vision is enabled we must manually update odometry in SwerveDrive
-    updateVisionOdometry();
+    //updateVisionOdometry();
     //(Target height - camera height) / tan((camera angle + target offset angle from limelight)) * (PI / 180)))
-    double ourDist = (((double)12.0 - (double)13.0) / 
-      (Math.tan(((double)0.0 + LimelightHelpers.getTY("limelight")) * 
-      (3.1415926 / 180.00))));
-    if (ourDist <= 22.5 && ourDist >= 16.5) {
+    LaserCan.Measurement measurement = lc.getMeasurement();
+    if (measurement.distance_mm >= 152.4 && measurement.distance_mm <= 228.6 && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
       inDist=true;
     }
     else {
       inDist=false;
     }
     SmartDashboard.putBoolean("inDsit", inDist);
-    SmartDashboard.putNumber("Distance", ourDist);
+    SmartDashboard.putNumber("Distance", measurement.distance_mm);
+    SmartDashboard.putNumber("Heading: ", getHeading().getDegrees());
   }
 
   @Override

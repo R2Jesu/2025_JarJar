@@ -22,6 +22,7 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
   private DigitalInput backSensor = new DigitalInput(11);
   private DigitalInput frontSensor = new DigitalInput(13);
   private Boolean overrideSensor=false;
+  private Boolean haveCoral=false;
   
   
   /** Creates a new R2Jesu_CoralSubsystem. */
@@ -51,7 +52,7 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
    */
   public boolean R2Jesu_CoralCondition() {
     // Query some boolean state, such as a digital sensor.
-    return true;
+    return haveCoral;
   }
 
   public void releaseCoral() {
@@ -75,6 +76,10 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
     }
   }
 
+  public Boolean haveCoral() {
+    return this.haveCoral;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -83,9 +88,11 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
     if (backSensor.get() && !frontSensor.get() && !overrideSensor) {
       coralLeft.set(ControlMode.PercentOutput, 0.0);
       coralRight.set(ControlMode.PercentOutput, -0.0);
+      haveCoral=true;
     } else {
       coralLeft.set(ControlMode.PercentOutput, 0.5);
       coralRight.set(ControlMode.PercentOutput, -0.5);
+      haveCoral=false;
     }
 
     if (backSensor.get() && frontSensor.get() && !(R2Jesu_ElevatorSubsystem.getElevatorLevel() == 0)) {

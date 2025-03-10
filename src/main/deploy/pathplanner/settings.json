@@ -1,5 +1,5 @@
 {
-  "robotWidth": 0.84453,
+  "robotWidth": 0.845,
   "robotLength": 1.016,
   "holonomicMode": true,
   "pathFolders": [
@@ -15,15 +15,15 @@
     "One Coral",
     "Three Coral"
   ],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 3.0,
-  "defaultMaxAngVel": 90.0,
-  "defaultMaxAngAccel": 135.0,
+  "defaultMaxVel": 2.0,
+  "defaultMaxAccel": 1.0,
+  "defaultMaxAngVel": 45.0,
+  "defaultMaxAngAccel": 90.0,
   "defaultNominalVoltage": 12.0,
-  "robotMass": 52.6167,
+  "robotMass": 55.34,
   "robotMOI": 5.0,
   "robotTrackwidth": 0.546,
-  "driveWheelRadius": 0.0508,
+  "driveWheelRadius": 0.051,
   "driveGearing": 6.75,
   "maxDriveSpeed": 4.602,
   "driveMotorType": "NEO",

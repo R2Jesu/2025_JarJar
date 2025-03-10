@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import au.grapplerobotics.CanBridge;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -16,23 +17,26 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
 
   public Robot() {
+    CanBridge.runTCP();
     m_robotContainer = new RobotContainer();
   }
 
   @Override
   public void robotInit() {
     CameraServer.startAutomaticCapture();
-/*     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+/*      m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("Shoot leave", kShootLeaveAuto);
     m_chooser.addOption("Shoot leave shoot", kShootLeaveShootAuto);
     m_chooser.addOption("Shoot leave off center", kShootLeaveOffCenterAuto);
-    m_chooser.addOption("Shoot leave shoot off center", kShootLeaveShootOffCenterAuto);
-    SmartDashboard.putData("Auto choices", m_chooser); */
+    m_chooser.addOption("Shoot leave shoot off center", kShootLeaveShootOffCenterAuto); */
+  
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    SmartDashboard.putString("Choice", m_autonomousCommand.toString());
   }
 
   @Override
@@ -47,7 +51,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+    SmartDashboard.putString("Choice", m_autonomousCommand.toString());
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }

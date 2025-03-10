@@ -103,7 +103,7 @@ public class RobotContainer {
     drivebase.setDefaultCommand(
       drivebase.driveCommand(() -> driverXbox.getRightY(),
         () ->  driverXbox.getRightX(),
-        () -> driverXbox.getLeftX()));
+        () -> -driverXbox.getLeftX()));
 
     driver2Xbox.start().onTrue(new SequentialCommandGroup(new R2Jesu_ReleaseHangerCommand(m_R2Jesu_HangerSubsystem), new R2Jesu_DropCoralChuteCommand(m_R2Jesu_CoralSubsystem)));
     driverXbox.leftTrigger().whileTrue(new R2Jesu_HangCommand(m_R2Jesu_HangerSubsystem));
@@ -137,5 +137,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     //return Commands.print("No autonomous command configured");
     return autoChooser.getSelected();
+    //return drivebase.getAutonomousCommand("2110_OneCoralAuto");
   }
 }
