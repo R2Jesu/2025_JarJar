@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.7391891891891893,
-        "y": 0.8035472972972957
+        "x": 1.47,
+        "y": 1.01
       },
       "prevControl": {
-        "x": 2.0194853934255805,
-        "y": 1.2388308780045525
+        "x": 1.7502962042363912,
+        "y": 1.4452835807072568
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,15 +33,15 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "R2Jesu_SeeCoral",
+      "name": "",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 0.5,
+    "maxAcceleration": 0.25,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 90.0,
     "nominalVoltage": 12.0,

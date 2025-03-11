@@ -11,9 +11,27 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_AlignA"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_PlaceCoral"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "1706_GoToRCS"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
           }
         },
         {
@@ -23,15 +41,45 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_AlignB"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_PlaceCoral"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "1706_GoToRCS"
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "1807_PlaceCoralFromRCS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_AlignA"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_PlaceCoral"
           }
         }
       ]

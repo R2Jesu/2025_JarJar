@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8871333592646975,
-        "y": 1.809381889439956
+        "x": 2.9052364864914266,
+        "y": 1.643496621621622
       },
       "isLocked": false,
       "linkedName": "1706"
     },
     {
       "anchor": {
-        "x": 1.7391891891891893,
-        "y": 0.8035472972972957
+        "x": 1.47,
+        "y": 1.01
       },
       "prevControl": {
-        "x": 2.369205329613805,
-        "y": 1.4420018617151582
+        "x": 2.444422315779187,
+        "y": 1.7664414649948403
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,17 +31,10 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "R2Jesu_SeeCoral",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 0.5,
+    "maxAcceleration": 0.25,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 90.0,
     "nominalVoltage": 12.0,

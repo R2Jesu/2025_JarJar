@@ -15,8 +15,8 @@
     "One Coral",
     "Three Coral"
   ],
-  "defaultMaxVel": 1.0,
-  "defaultMaxAccel": 0.5,
+  "defaultMaxVel": 0.5,
+  "defaultMaxAccel": 0.25,
   "defaultMaxAngVel": 45.0,
   "defaultMaxAngAccel": 90.0,
   "defaultNominalVoltage": 12.0,

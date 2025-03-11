@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7391891891891893,
-        "y": 0.8035472972972957
+        "x": 1.47,
+        "y": 1.01
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.436415519216908,
-        "y": 1.6077096463438592
+        "x": 2.1150836704220275,
+        "y": 1.9657491055784713
       },
       "isLocked": false,
       "linkedName": "coral station right"
@@ -20,8 +20,8 @@
         "y": 2.5822635135135137
       },
       "prevControl": {
-        "x": 2.975039015939596,
-        "y": 1.9614326600024579
+        "x": 2.825744517243807,
+        "y": 1.8289831601503865
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,23 +31,10 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "R2Jesu_AlignB",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    },
-    {
-      "name": "",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 0.5,
+    "maxAcceleration": 0.25,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 90.0,
     "nominalVoltage": 12.0,

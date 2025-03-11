@@ -18,7 +18,7 @@ public class R2Jesu_AlignToTagCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private boolean sideL;
   private Timer dontSeeTagTimer, stopTimer, overallTimer;
-  private PIDController xControl = new PIDController(1.5, 0, .5);
+  private PIDController xControl = new PIDController(1.5, 0, 0);
   private PIDController yControl = new PIDController(2, 0, 0);  
   private PIDController zControl = new PIDController(.058, 0, .0);
 
@@ -48,7 +48,7 @@ public class R2Jesu_AlignToTagCommand extends Command {
     this.overallTimer = new Timer();
     this.overallTimer.start();
     zControl.setSetpoint(0.0);
-    zControl.setTolerance(.5);
+    zControl.setTolerance(.2);
 
     if (sideL) {
       yControl.setSetpoint(-.19);
@@ -56,10 +56,10 @@ public class R2Jesu_AlignToTagCommand extends Command {
     else {
       yControl.setSetpoint(.19);
     }
-    yControl.setTolerance(.5);
+    yControl.setTolerance(.1);
 
     xControl.setSetpoint(0.0);
-    xControl.setTolerance(.5);
+    xControl.setTolerance(.2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -78,7 +78,9 @@ public class R2Jesu_AlignToTagCommand extends Command {
       SmartDashboard.putNumber("tx:", LimelightHelpers.getTX("limelight"));
       
 
-      m_subsystem.drive(new Translation2d(yControl.getError() < 0.5 ? xSpeed : 0, ySpeed), rotValue, false);
+      m_subsystem.drive(new Translation2d(m_subsystem.distInIn > 9 ? xSpeed : 0, ySpeed), rotValue, false);
+      //m_subsystem.drive(new Translation2d(yControl.getError() < 0.2 ? xSpeed : 0, ySpeed), rotValue, false);
+      //m_subsystem.drive(new Translation2d(xControl.atSetpoint() ? 0 : xSpeed, ySpeed), rotValue, false);
       //m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
 
 

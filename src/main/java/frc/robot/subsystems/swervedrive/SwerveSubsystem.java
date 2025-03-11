@@ -80,6 +80,7 @@ public class SwerveSubsystem extends SubsystemBase
   private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
   private boolean inDist;
   private LaserCan lc = new LaserCan(26);
+  public static double distInIn;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -181,8 +182,8 @@ public class SwerveSubsystem extends SubsystemBase
     //updateVisionOdometry();
     //(Target height - camera height) / tan((camera angle + target offset angle from limelight)) * (PI / 180)))
     LaserCan.Measurement measurement = lc.getMeasurement();
-    double distInIn = measurement.distance_mm * 0.03937007874;
-    if (distInIn <= 25.0 && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
+    distInIn = measurement.distance_mm * 0.03937007874;
+    if (distInIn <= 20.0 && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
       inDist=true;
     }
     else {
