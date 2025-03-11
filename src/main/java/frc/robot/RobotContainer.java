@@ -7,6 +7,7 @@ package frc.robot;
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.events.EventTrigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -54,6 +55,20 @@ public class RobotContainer {
   
 
   public RobotContainer() {
+    NamedCommands.registerCommand("R2Jesu_AlignA", new SequentialCommandGroup(Commands.print("COMMAND NEEDED: SAVE POSITION COORDS_VARIABLE"),
+  new R2Jesu_AlignToTagCommand(drivebase, false),
+ Commands.print("Align to Side B-RIGHT")));
+
+ NamedCommands.registerCommand("R2Jesu_PlaceCoral", new SequentialCommandGroup(
+  Commands.print("Raise Elevator to Level 4"),
+  new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 3),
+  Commands.print("Release Coral"),
+  new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem),
+  Commands.print("Lower back to floor"),
+  new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0),
+  Commands.print("GOTO COORDS_VARIABLE")
+  ));
+
     m_R2Jesu_AlgaeSubsystem.resetAlgaeEncoder();
     m_R2Jesu_ElevatorSubsystem.resetElevatorEncoder();
 
@@ -67,29 +82,33 @@ public class RobotContainer {
 // NamedCommands.registerCommands(Drivetrain.getNamedCommands());
 
 // Capture Robot position, align to deposit coral on side A
-  new EventTrigger("R2Jesu_AlignA").whileTrue(new SequentialCommandGroup(  
+ /*  new EventTrigger("R2Jesu_AlignA").whileTrue(new SequentialCommandGroup(  
         Commands.print("COMMAND NEEDED: SAVE POSITION COORDS_VARIABLE"),
-//      new R2Jesu_AlignToTagCommand(drivebase, true),
+        //new R2Jesu_AlignToTagCommand(drivebase, true),
         Commands.print("Align to Side A-LEFT")
-        ));
+        )); */
     
 // Capture Robot position, align to deposit coral on side B, take out print commands to execute
-  new EventTrigger("R2Jesu_AlignB").whileTrue(new SequentialCommandGroup(
+  /* new EventTrigger("R2Jesu_AlignB").whileTrue(new SequentialCommandGroup(
         Commands.print("COMMAND NEEDED: SAVE POSITION COORDS_VARIABLE"),
-//      new R2Jesu_AlignToTagCommand(drivebase, false),
+        //new R2Jesu_AlignToTagCommand(drivebase, false),
         Commands.print("Align to Side B-RIGHT")
 ));
 
+ */
+
 // Raise elevator to deposit the coral on Level 4, deposit the coral, then lower the elevator and return to position
-  new EventTrigger("R2Jesu_PlaceCoral").whileTrue(new SequentialCommandGroup(
+  /* new EventTrigger("R2Jesu_PlaceCoral").whileTrue(new SequentialCommandGroup(
       Commands.print("Raise Elevator to Level 4"),
-//    new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 4),
+      new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 3),
       Commands.print("Release Coral"),
-//    new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem),
+      new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem),
       Commands.print("Lower back to floor"),
-//    new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0),
+      new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0),
       Commands.print("GOTO COORDS_VARIABLE")
-      ));
+      )); */
+
+     
 
 // Get Coral from Coral Station and return to PathPlanner sequence.  
 // Not sure this is going to work to wait to get the coral. may need an onfalse, wait

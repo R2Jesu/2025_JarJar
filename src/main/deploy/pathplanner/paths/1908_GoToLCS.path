@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7056587837837838,
-        "y": 5.368918918918919
+        "x": 3.646368243243243,
+        "y": 5.467736486486485
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4486263386855205,
-        "y": 6.214079684015144
+        "x": 2.377042209294833,
+        "y": 6.277596768311292
       },
       "isLocked": false,
       "linkedName": "1908"
@@ -20,8 +20,8 @@
         "y": 6.930236486486486
       },
       "prevControl": {
-        "x": 1.5325949026245969,
-        "y": 6.79220396858215
+        "x": 1.5318167351961263,
+        "y": 6.791036011955867
       },
       "nextControl": null,
       "isLocked": false,
@@ -40,8 +40,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 90.0,
     "nominalVoltage": 12.0,

@@ -69,17 +69,17 @@ public class R2Jesu_AlignToTagCommand extends Command {
       dontSeeTagTimer.reset();
       double[] positions = LimelightHelpers.getCameraPose_TargetSpace("limelight");
 
-      double xSpeed = -xControl.calculate(positions[1]);
+      double xSpeed = xControl.calculate(positions[1]);
       SmartDashboard.putNumber("xspeed", xSpeed);
-      double ySpeed = yControl.calculate(positions[0]);
+      double ySpeed = -yControl.calculate(positions[0]);
       SmartDashboard.putNumber("yspeed", ySpeed);
-      double rotValue = zControl.calculate(positions[4]);
+      double rotValue = -zControl.calculate(positions[4]);
       SmartDashboard.putNumber("zspeed", rotValue);
       SmartDashboard.putNumber("tx:", LimelightHelpers.getTX("limelight"));
       
 
-      //m_subsystem.drive(new Translation2d(yControl.getError() < 0.5 ? xSpeed : 0, ySpeed), rotValue, false);
-      m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
+      m_subsystem.drive(new Translation2d(yControl.getError() < 0.5 ? xSpeed : 0, ySpeed), rotValue, false);
+      //m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
 
 
       if (!zControl.atSetpoint() ||
@@ -103,6 +103,6 @@ public class R2Jesu_AlignToTagCommand extends Command {
   @Override
   public boolean isFinished() {
     return this.dontSeeTagTimer.hasElapsed(1.0) ||
-        stopTimer.hasElapsed(0.3) || overallTimer.hasElapsed(7.0);
+        stopTimer.hasElapsed(0.3) || overallTimer.hasElapsed(3.0);
   }
 }

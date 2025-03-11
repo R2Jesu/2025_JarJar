@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5082883285191757,
-        "y": 1.4228178528529913
+        "x": 2.2861980042049233,
+        "y": 1.664851117607692
       },
       "isLocked": false,
       "linkedName": "coral station right"
     },
     {
       "anchor": {
-        "x": 5.306503378378378,
-        "y": 2.6217905405405393
+        "x": 5.316385135135135,
+        "y": 2.5624999999999987
       },
       "prevControl": {
-        "x": 3.7800018300791,
-        "y": 1.812738855491596
+        "x": 3.3166579280295005,
+        "y": 1.9815965875096269
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,21 +33,21 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "R2Jesu_AlignA",
+      "name": "",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": null
     },
     {
-      "name": "R2Jesu_PlaceCoral",
+      "name": "",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": null
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 90.0,
     "nominalVoltage": 12.0,

@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 6.008108108108107,
+        "x": 6.176097972972973,
         "y": 4.034881756756757
       },
       "prevControl": {
-        "x": 6.257785305252382,
+        "x": 6.425775170117247,
         "y": 4.022181472264693
       },
       "nextControl": null,
@@ -31,23 +31,10 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "R2Jesu_AlignA",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    },
-    {
-      "name": "R2Jesu_PlaceCoral",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 90.0,
     "nominalVoltage": 12.0,

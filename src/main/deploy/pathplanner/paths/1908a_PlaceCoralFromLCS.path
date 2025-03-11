@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 3.7056587837837838,
-        "y": 5.368918918918919
+        "x": 3.646368243243243,
+        "y": 5.467736486486485
       },
       "prevControl": {
-        "x": 2.557724775408433,
-        "y": 6.152492076922571
+        "x": 2.4984342348678923,
+        "y": 6.251309644490138
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,21 +33,21 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "R2Jesu_AlignA",
+      "name": "",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
     },
     {
-      "name": "R2Jesu_PlaceCoral",
+      "name": "",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 90.0,
     "nominalVoltage": 12.0,

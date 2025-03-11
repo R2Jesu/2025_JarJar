@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.531841216216217,
-        "y": 6.169341216216214
+        "x": 6.662541365285354,
+        "y": 6.236027406366751
       },
       "isLocked": false,
       "linkedName": "blue start"
     },
     {
       "anchor": {
-        "x": 3.7056587837837838,
-        "y": 5.368918918918919
+        "x": 3.646368243243243,
+        "y": 5.467736486486485
       },
       "prevControl": {
-        "x": 4.338091216216217,
-        "y": 5.695016891891892
+        "x": 4.104142146221158,
+        "y": 5.863777956566496
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,15 +39,15 @@
       "command": null
     },
     {
-      "name": "R2Jesu_PlaceCoral",
+      "name": "",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 90.0,
     "nominalVoltage": 12.0,

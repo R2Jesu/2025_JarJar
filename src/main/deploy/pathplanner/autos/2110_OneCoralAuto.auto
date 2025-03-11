@@ -11,9 +11,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_AlignA"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_PlaceCoral"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "2110_OutOfWayb"
+            "pathName": "2110_OutOfWayFlipped"
           }
         }
       ]

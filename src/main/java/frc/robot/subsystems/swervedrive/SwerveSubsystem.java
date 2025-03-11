@@ -181,14 +181,15 @@ public class SwerveSubsystem extends SubsystemBase
     //updateVisionOdometry();
     //(Target height - camera height) / tan((camera angle + target offset angle from limelight)) * (PI / 180)))
     LaserCan.Measurement measurement = lc.getMeasurement();
-    if (measurement.distance_mm >= 152.4 && measurement.distance_mm <= 228.6 && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
+    double distInIn = measurement.distance_mm * 0.03937007874;
+    if (distInIn <= 25.0 && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
       inDist=true;
     }
     else {
       inDist=false;
     }
     SmartDashboard.putBoolean("inDsit", inDist);
-    SmartDashboard.putNumber("Distance", measurement.distance_mm);
+    SmartDashboard.putNumber("Distance", distInIn);
     SmartDashboard.putNumber("Heading: ", getHeading().getDegrees());
   }
 

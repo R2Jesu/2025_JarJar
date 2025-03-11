@@ -90,8 +90,18 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
       coralRight.set(ControlMode.PercentOutput, -0.0);
       haveCoral=true;
     } else {
-      coralLeft.set(ControlMode.PercentOutput, 0.5);
-      coralRight.set(ControlMode.PercentOutput, -0.5);
+      if (overrideSensor) {
+        if (R2Jesu_ElevatorSubsystem.getElevatorLevel() == 3) {
+          coralLeft.set(ControlMode.PercentOutput, 0.5);
+          coralRight.set(ControlMode.PercentOutput, -0.5);
+        } else {
+          coralLeft.set(ControlMode.PercentOutput, 0.8);
+          coralRight.set(ControlMode.PercentOutput, -0.8);
+        }
+      } else {
+        coralLeft.set(ControlMode.PercentOutput, 0.5);
+        coralRight.set(ControlMode.PercentOutput, -0.5);       
+      }
       haveCoral=false;
     }
 
@@ -107,7 +117,7 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("BackSensor", backSensor.get());
     SmartDashboard.putBoolean("FrontSensor", frontSensor.get());
     SmartDashboard.putBoolean("Override", overrideSensor);
-    
+    SmartDashboard.putBoolean("haveCoral", haveCoral);
   }
 
   @Override
