@@ -40,8 +40,11 @@ public class R2Jesu_ElevatorToPositionCommand extends Command {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+  // If the elevator reaches target, or is going to the floor then finish
+  // this enables us to start driving while the elevator is going down
   @Override
   public void execute() {
+    //if(m_subsystem.targetiscurrent() || (R2Jesu_ElevatorSubsystem.getTargetLevel() == 0 && R2Jesu_ElevatorSubsystem.getElevatorLevel() < 2)) {
     if(m_subsystem.targetiscurrent()) {
       m_finish=true;
     }

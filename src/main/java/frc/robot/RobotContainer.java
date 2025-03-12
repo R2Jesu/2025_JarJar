@@ -79,19 +79,25 @@ public class RobotContainer {
    new R2Jesu_AlignToTagCommand(drivebase, true),
   Commands.print("Align to Side B-RIGHT")));
   
-   NamedCommands.registerCommand("R2Jesu_PlaceCoral", new SequentialCommandGroup(
+   NamedCommands.registerCommand("R2Jesu_PlaceCoral4", new SequentialCommandGroup(
     Commands.print("Raise Elevator to Level 4"),
     new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 3),
     Commands.print("Release Coral"),
     new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem),
     Commands.print("Lower back to floor"),
-    new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0),
-    Commands.print("GOTO COORDS_VARIABLE")
+    new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0)
+    ));
+
+    NamedCommands.registerCommand("R2Jesu_PlaceCoralT", new SequentialCommandGroup(
+      Commands.print("Release Coral"),
+      new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem)      
+      ));
+
     // Raise elevator to deposit the coral on Level 4, deposit the coral, then lower the elevator and return to position
     
     //new EventTrigger("R2Jesu_SeeCoral").and(m_R2Jesu_CoralSubsystem::R2Jesu_CoralCondition).onTrue(Commands.print("Coral Obtained"));
+
     
-    ));
   }
 
   private void configureBindings() {

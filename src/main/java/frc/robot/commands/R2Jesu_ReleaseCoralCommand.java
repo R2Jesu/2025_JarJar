@@ -34,6 +34,7 @@ public class R2Jesu_ReleaseCoralCommand extends Command {
   @Override
   public void initialize() {
     m_subsystem.releaseCoral();
+    m_finish=false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

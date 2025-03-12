@@ -27,7 +27,7 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
   private Encoder elevatorEncoder = new Encoder(1,2, true, CounterBase.EncodingType.k4X);
   private static int currentPosition=0;
   private static int targetPosition=0;
-  private double elevatorStops[] = {0.0, 3.0, 11.0, 25};
+  private double elevatorStops[] = {0.0, 3.5, 11.25, 25};
   private PIDController m_elevatorController = new PIDController(.15, 0.0, 0.0, 0.01); //p 1.5
   private PIDController m_elevatorDownController = new PIDController(.05, 0.0, 0.0, 0.01); //p 1.5
   private double pidOutput;
@@ -39,7 +39,6 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
   
   /** Creates a new R2Jesu_ElevatorSubsystem. */
 
-  /** Here we will eventuall put the motor defintions that we need to control to raise and lower the elevator */
   public R2Jesu_ElevatorSubsystem() {
     myServo.setBoundsMicroseconds(1950, 0, 0, 0, 1050);
   }
@@ -75,13 +74,13 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
      * this may need to take in a speed and the PID logic for a raise to x level with
      * the PID slowing the speed on approach
      */
-    if (speed > .25)
+    if (speed > .60)
     {
-      speed = .25;
+      speed = .60;
     }
-    if (speed < -.15)
+    if (speed < -.50)
     {
-      speed = -.15;
+      speed = -.50;
     }
 
     elevator1.set(speed);
@@ -193,6 +192,15 @@ public static int getElevatorLevel() {
 
 }
 
+public static int getTargetLevel() {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  return targetPosition;
+
+}
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -216,7 +224,7 @@ public static int getElevatorLevel() {
   {
       this.moveElevator(downpidOutput);
   }
-  else if (targetPosition > currentPosition)
+  else if (targetPosition > currentPosition) 
   {
     this.moveElevator(pidOutput);
   }

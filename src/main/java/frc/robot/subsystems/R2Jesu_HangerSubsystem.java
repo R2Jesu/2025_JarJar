@@ -9,6 +9,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.hal.PWMConfigDataResult;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -16,11 +18,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class R2Jesu_HangerSubsystem extends SubsystemBase {
   private SparkMax hanger1 = new SparkMax(15, MotorType.kBrushed);
   private static boolean hangerReleased = false;
+  private Servo myServo = new Servo(8);
  
   /** Creates a new R2Jesu_HangerSubsystem. */
 
-  /** Here we will eventuall put the motor defintions that we need to control to raise and lower the hanger */
- 
+  public R2Jesu_HangerSubsystem() {
+    // Query some boolean state, such as a digital sensor.
+    myServo.setBoundsMicroseconds(1950, 0, 0, 0, 1050);
+    this.servoOut();
+  }
 
 
   /**
@@ -56,17 +62,28 @@ public class R2Jesu_HangerSubsystem extends SubsystemBase {
   }
 
   public void releaseHanger() {
-    //Set servo to 0
+    servoIn();
   }
 
   public boolean isHangerReleased() {
     return hangerReleased;
   }
 
+  public void servoIn() {
+    myServo.setPosition(0.0);
+  
+  }
+  
+  public void servoOut() {
+    myServo.setPosition(1.0);
+  
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     //SmartDashboard.putNumber("encoderdistance", hangerEncoder.getDistance());
+
    
   }
 

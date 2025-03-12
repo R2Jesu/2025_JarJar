@@ -67,7 +67,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1807_PlaceCoralFromRCS"
+            "pathName": "1706b_PlaceCoralFromRCS"
           }
         },
         {
@@ -79,13 +79,13 @@
         {
           "type": "named",
           "data": {
-            "name": "R2Jesu_PlaceCoral4"
+            "name": "R2Jesu_PlaceCoralT"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Three Coral newside",
+  "folder": "Three coral sameside",
   "choreoAuto": false
 }

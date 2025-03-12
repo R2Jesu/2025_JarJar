@@ -20,7 +20,7 @@ public class R2Jesu_AlignToTagCommand extends Command {
   private Timer dontSeeTagTimer, stopTimer, overallTimer;
   private PIDController xControl = new PIDController(1.5, 0, 0);
   private PIDController yControl = new PIDController(2, 0, 0);  
-  private PIDController zControl = new PIDController(.058, 0, .0);
+  private PIDController zControl = new PIDController(.068, 0, .0);
 
   private final SwerveSubsystem m_subsystem;
 
@@ -51,10 +51,10 @@ public class R2Jesu_AlignToTagCommand extends Command {
     zControl.setTolerance(.2);
 
     if (sideL) {
-      yControl.setSetpoint(-.19);
+      yControl.setSetpoint(-.175);
     }
     else {
-      yControl.setSetpoint(.19);
+      yControl.setSetpoint(.175);
     }
     yControl.setTolerance(.1);
 
@@ -70,6 +70,9 @@ public class R2Jesu_AlignToTagCommand extends Command {
       double[] positions = LimelightHelpers.getCameraPose_TargetSpace("limelight");
 
       double xSpeed = xControl.calculate(positions[1]);
+      if (SwerveSubsystem.distInIn <= 6.0) {
+        xSpeed = 0;
+      }
       SmartDashboard.putNumber("xspeed", xSpeed);
       double ySpeed = -yControl.calculate(positions[0]);
       SmartDashboard.putNumber("yspeed", ySpeed);
@@ -78,7 +81,7 @@ public class R2Jesu_AlignToTagCommand extends Command {
       SmartDashboard.putNumber("tx:", LimelightHelpers.getTX("limelight"));
       
 
-      m_subsystem.drive(new Translation2d(m_subsystem.distInIn > 9 ? xSpeed : 0, ySpeed), rotValue, false);
+      m_subsystem.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
       //m_subsystem.drive(new Translation2d(yControl.getError() < 0.2 ? xSpeed : 0, ySpeed), rotValue, false);
       //m_subsystem.drive(new Translation2d(xControl.atSetpoint() ? 0 : xSpeed, ySpeed), rotValue, false);
       //m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
@@ -105,6 +108,6 @@ public class R2Jesu_AlignToTagCommand extends Command {
   @Override
   public boolean isFinished() {
     return this.dontSeeTagTimer.hasElapsed(1.0) ||
-        stopTimer.hasElapsed(0.3) || overallTimer.hasElapsed(3.0);
+        stopTimer.hasElapsed(0.3) || overallTimer.hasElapsed(2.0);
   }
 }

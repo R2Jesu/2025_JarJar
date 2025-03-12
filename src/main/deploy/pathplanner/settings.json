@@ -12,11 +12,12 @@
   ],
   "autoFolders": [
     "Four Coral",
+    "Three coral sameside",
     "One Coral",
-    "Three Coral"
+    "Three Coral newside"
   ],
-  "defaultMaxVel": 0.5,
-  "defaultMaxAccel": 0.25,
+  "defaultMaxVel": 3.0,
+  "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 45.0,
   "defaultMaxAngAccel": 90.0,
   "defaultNominalVoltage": 12.0,

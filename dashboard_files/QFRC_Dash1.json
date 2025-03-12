@@ -8,19 +8,19 @@
             "title": "R2Jesu",
             "widgets": [
                 {
-                    "colSpan": 1,
-                    "column": 1,
+                    "colSpan": 2,
+                    "column": 0,
                     "properties": {
                     },
                     "row": 0,
-                    "rowSpan": 1,
+                    "rowSpan": 2,
                     "title": "inDsit",
                     "topic": "/SmartDashboard/inDsit",
                     "type": "color"
                 },
                 {
                     "colSpan": 1,
-                    "column": 2,
+                    "column": 4,
                     "properties": {
                     },
                     "row": 0,
@@ -28,6 +28,83 @@
                     "title": "Auto Chooser",
                     "topic": "/SmartDashboard/Auto Chooser",
                     "type": "String Chooser"
+                },
+                {
+                    "colSpan": 2,
+                    "column": 2,
+                    "properties": {
+                    },
+                    "row": 0,
+                    "rowSpan": 2,
+                    "title": "haveCoral",
+                    "topic": "/SmartDashboard/haveCoral",
+                    "type": "color"
+                },
+                {
+                    "colSpan": 1,
+                    "column": 0,
+                    "properties": {
+                    },
+                    "row": 2,
+                    "rowSpan": 1,
+                    "title": "xspeed",
+                    "topic": "/SmartDashboard/xspeed",
+                    "type": "double"
+                },
+                {
+                    "colSpan": 1,
+                    "column": 1,
+                    "properties": {
+                    },
+                    "row": 2,
+                    "rowSpan": 1,
+                    "title": "yspeed",
+                    "topic": "/SmartDashboard/yspeed",
+                    "type": "double"
+                },
+                {
+                    "colSpan": 1,
+                    "column": 2,
+                    "properties": {
+                    },
+                    "row": 2,
+                    "rowSpan": 1,
+                    "title": "zspeed",
+                    "topic": "/SmartDashboard/zspeed",
+                    "type": "double"
+                },
+                {
+                    "colSpan": 1,
+                    "column": 4,
+                    "properties": {
+                    },
+                    "row": 2,
+                    "rowSpan": 1,
+                    "title": "Heading: ",
+                    "topic": "/SmartDashboard/Heading: ",
+                    "type": "double"
+                },
+                {
+                    "colSpan": 1,
+                    "column": 3,
+                    "properties": {
+                    },
+                    "row": 2,
+                    "rowSpan": 1,
+                    "title": "Distance",
+                    "topic": "/SmartDashboard/Distance",
+                    "type": "double"
+                },
+                {
+                    "colSpan": 1,
+                    "column": 4,
+                    "properties": {
+                    },
+                    "row": 1,
+                    "rowSpan": 1,
+                    "title": "encoderdistance",
+                    "topic": "/SmartDashboard/encoderdistance",
+                    "type": "double"
                 }
             ]
         }

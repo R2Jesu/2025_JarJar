@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 
@@ -22,7 +23,7 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
   private DigitalInput backSensor = new DigitalInput(11);
   private DigitalInput frontSensor = new DigitalInput(13);
   private Boolean overrideSensor=false;
-  private Boolean haveCoral=false;
+  private static Boolean haveCoral=false;
   
   
   /** Creates a new R2Jesu_CoralSubsystem. */
@@ -76,8 +77,8 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
     }
   }
 
-  public Boolean haveCoral() {
-    return this.haveCoral;
+  public static Boolean haveCoral() {
+    return haveCoral;
   }
 
   @Override
@@ -105,10 +106,10 @@ public class R2Jesu_CoralSubsystem extends SubsystemBase {
       haveCoral=false;
     }
 
-    if (backSensor.get() && frontSensor.get() && !(R2Jesu_ElevatorSubsystem.getElevatorLevel() == 0)) {
+/*     if (backSensor.get() && frontSensor.get() && !(R2Jesu_ElevatorSubsystem.getElevatorLevel() == 0)) {
       coralLeft.set(ControlMode.PercentOutput, 0.0);
       coralRight.set(ControlMode.PercentOutput, -0.0);
-    }  
+    }   */
 
     if (frontSensor.get()) {
       overrideSensor=false;
