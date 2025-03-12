@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.R2Jesu_ElevatorSubsystem;
 
+import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An R2Jesu_Elevator command that uses an R2Jesu_Elevatorer subsystem. */
@@ -44,8 +46,7 @@ public class R2Jesu_ElevatorToPositionCommand extends Command {
   // this enables us to start driving while the elevator is going down
   @Override
   public void execute() {
-    //if(m_subsystem.targetiscurrent() || (R2Jesu_ElevatorSubsystem.getTargetLevel() == 0 && R2Jesu_ElevatorSubsystem.getElevatorLevel() < 2)) {
-    if(m_subsystem.targetiscurrent()) {
+    if(m_subsystem.targetiscurrent() || (m_subsystem.canMove() && R2Jesu_ElevatorSubsystem.getTargetLevel() == 0 )) {
       m_finish=true;
     }
   }

@@ -5,13 +5,14 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.R2Jesu_CoralSubsystem;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An R2Jesu_Coral command that uses an R2Jesu_Coraler subsystem. */
 public class R2Jesu_ReleaseCoralCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private boolean m_finish;
+   private Timer theTimer = new Timer();
 
   private final R2Jesu_CoralSubsystem m_subsystem;
 
@@ -33,6 +34,7 @@ public class R2Jesu_ReleaseCoralCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    theTimer.start();
     m_subsystem.releaseCoral();
     m_finish=false;
   }
@@ -40,7 +42,7 @@ public class R2Jesu_ReleaseCoralCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_subsystem.hasReleased()) {
+    if (m_subsystem.hasReleased()  || theTimer.hasElapsed(1.5)) {
       m_finish=true;
     }
   }

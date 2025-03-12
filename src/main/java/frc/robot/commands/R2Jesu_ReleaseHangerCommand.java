@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class R2Jesu_ReleaseHangerCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private boolean m_finish;
-  private double theTime;
+  private Timer theTimer = new Timer();
 
   private final R2Jesu_HangerSubsystem m_subsystem;
 
@@ -36,13 +36,13 @@ public class R2Jesu_ReleaseHangerCommand extends Command {
   public void initialize() {
     m_finish=false;
     m_subsystem.releaseHanger();
-    theTime = Timer.getTimestamp();
+    theTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if ((Timer.getTimestamp() - theTime) >= 2) {
+    if (theTimer.hasElapsed(2.0)) {
       m_subsystem.setReleased();
       m_finish=true;
     }   

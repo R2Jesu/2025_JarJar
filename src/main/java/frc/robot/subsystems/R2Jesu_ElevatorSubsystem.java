@@ -201,6 +201,20 @@ public static int getTargetLevel() {
 
 }
 
+public boolean canMove() {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  double encDist = elevatorEncoder.getDistance();
+  if (encDist < 14.0) {
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

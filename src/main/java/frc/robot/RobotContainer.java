@@ -58,6 +58,7 @@ public class RobotContainer {
     registerAutoCommands();
     m_R2Jesu_AlgaeSubsystem.resetAlgaeEncoder();
     m_R2Jesu_ElevatorSubsystem.resetElevatorEncoder();
+    m_R2Jesu_HangerSubsystem.servoOut();
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -72,11 +73,11 @@ public class RobotContainer {
 
   private void registerAutoCommands(){
     NamedCommands.registerCommand("R2Jesu_AlignA", new SequentialCommandGroup(Commands.print("COMMAND NEEDED: SAVE POSITION COORDS_VARIABLE"),
-    new R2Jesu_AlignToTagCommand(drivebase, false),
+    new R2Jesu_AlignToTagCommand(drivebase, true),
    Commands.print("Align to Side A-LEFT")));
 
    NamedCommands.registerCommand("R2Jesu_AlignB", new SequentialCommandGroup(Commands.print("COMMAND NEEDED: SAVE POSITION COORDS_VARIABLE"),
-   new R2Jesu_AlignToTagCommand(drivebase, true),
+   new R2Jesu_AlignToTagCommand(drivebase, false),
   Commands.print("Align to Side B-RIGHT")));
   
    NamedCommands.registerCommand("R2Jesu_PlaceCoral4", new SequentialCommandGroup(
