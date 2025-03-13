@@ -42,39 +42,6 @@
                 },
                 {
                     "colSpan": 1,
-                    "column": 0,
-                    "properties": {
-                    },
-                    "row": 2,
-                    "rowSpan": 1,
-                    "title": "xspeed",
-                    "topic": "/SmartDashboard/xspeed",
-                    "type": "double"
-                },
-                {
-                    "colSpan": 1,
-                    "column": 1,
-                    "properties": {
-                    },
-                    "row": 2,
-                    "rowSpan": 1,
-                    "title": "yspeed",
-                    "topic": "/SmartDashboard/yspeed",
-                    "type": "double"
-                },
-                {
-                    "colSpan": 1,
-                    "column": 2,
-                    "properties": {
-                    },
-                    "row": 2,
-                    "rowSpan": 1,
-                    "title": "zspeed",
-                    "topic": "/SmartDashboard/zspeed",
-                    "type": "double"
-                },
-                {
-                    "colSpan": 1,
                     "column": 4,
                     "properties": {
                     },
@@ -104,6 +71,28 @@
                     "rowSpan": 1,
                     "title": "encoderdistance",
                     "topic": "/SmartDashboard/encoderdistance",
+                    "type": "double"
+                },
+                {
+                    "colSpan": 1,
+                    "column": 2,
+                    "properties": {
+                    },
+                    "row": 2,
+                    "rowSpan": 1,
+                    "title": "currentPosition",
+                    "topic": "/SmartDashboard/currentPosition",
+                    "type": "double"
+                },
+                {
+                    "colSpan": 1,
+                    "column": 1,
+                    "properties": {
+                    },
+                    "row": 2,
+                    "rowSpan": 1,
+                    "title": "targetPosition",
+                    "topic": "/SmartDashboard/targetPosition",
                     "type": "double"
                 }
             ]
