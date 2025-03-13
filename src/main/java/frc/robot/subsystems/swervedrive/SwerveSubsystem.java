@@ -81,6 +81,7 @@ public class SwerveSubsystem extends SubsystemBase
   private boolean inDist;
   private LaserCan lc = new LaserCan(26);
   public static double distInIn;
+  private Pose2d holdPose = new Pose2d();
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -192,6 +193,8 @@ public class SwerveSubsystem extends SubsystemBase
     SmartDashboard.putBoolean("inDsit", inDist);
     SmartDashboard.putNumber("Distance", distInIn);
     SmartDashboard.putNumber("Heading: ", getHeading().getDegrees());
+    SmartDashboard.putString("currentpose", getPose().toString());
+    SmartDashboard.putString("holdPose", holdPose.toString());
   }
 
   @Override
@@ -655,6 +658,21 @@ public class SwerveSubsystem extends SubsystemBase
   public Pose2d getPose()
   {
     return swerveDrive.getPose();
+  }
+
+  public void resetOurOdometry()
+  {
+    swerveDrive.resetOdometry(holdPose);
+  }
+
+  /**
+   * Gets the current pose (position and rotation) of the robot, as reported by odometry.
+   *
+   * @return The robot's pose
+   */
+  public void getOurPose()
+  {
+    holdPose = swerveDrive.getPose();
   }
 
   /**

@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_HoldPose"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "2110a_TakeCoral"
@@ -32,6 +38,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "One Coral",
+  "folder": "autos we use",
   "choreoAuto": false
 }

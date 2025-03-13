@@ -36,6 +36,7 @@ import frc.robot.commands.R2Jesu_ReleaseCoralCommand;
 import frc.robot.subsystems.R2Jesu_HangerSubsystem;
 import frc.robot.commands.R2Jesu_HangCommand;
 import frc.robot.commands.R2Jesu_ReleaseHangerCommand;
+import frc.robot.commands.R2Jesu_SavePositionCommand;
 
 public class RobotContainer {
 
@@ -44,7 +45,7 @@ public class RobotContainer {
   final         CommandXboxController driver2Xbox = new CommandXboxController(1);
   final         CommandJoystick buttonBoard = new CommandJoystick(2);
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+  public final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
   private final R2Jesu_ElevatorSubsystem m_R2Jesu_ElevatorSubsystem = new R2Jesu_ElevatorSubsystem();
   private final R2Jesu_AlgaeSubsystem m_R2Jesu_AlgaeSubsystem = new R2Jesu_AlgaeSubsystem();
@@ -93,6 +94,8 @@ public class RobotContainer {
       Commands.print("Release Coral"),
       new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem)      
       ));
+
+    NamedCommands.registerCommand("R2Jesu_HoldPose", new R2Jesu_SavePositionCommand(drivebase));      
 
     // Raise elevator to deposit the coral on Level 4, deposit the coral, then lower the elevator and return to position
     
