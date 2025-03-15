@@ -62,6 +62,7 @@ import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 import frc.robot.utilities.LimelightHelpers;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import au.grapplerobotics.LaserCan;
 import au.grapplerobotics.ConfigurationFailedException;
@@ -83,6 +84,8 @@ public class SwerveSubsystem extends SubsystemBase
   public static double distInIn;
   private Pose2d holdPose = new Pose2d();
 
+  Field2d field = new Field2d();
+
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
    *
@@ -90,6 +93,7 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public SwerveSubsystem(File directory)
   {
+    SmartDashboard.putData(field);
     // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
     //  In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
@@ -179,6 +183,7 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic()
   {
+    field.setRobotPose(getPose());
     // When vision is enabled we must manually update odometry in SwerveDrive
     //updateVisionOdometry();
     //(Target height - camera height) / tan((camera angle + target offset angle from limelight)) * (PI / 180)))

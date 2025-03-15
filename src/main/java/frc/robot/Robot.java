@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    m_robotContainer.drivebase.resetOurOdometry();
+    //m_robotContainer.drivebase.resetOurOdometry();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

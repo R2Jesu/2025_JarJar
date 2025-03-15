@@ -11,7 +11,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.events.EventTrigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -57,7 +57,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     registerAutoCommands();
-    m_R2Jesu_AlgaeSubsystem.resetAlgaeEncoder();
+    //m_R2Jesu_AlgaeSubsystem.resetAlgaeEncoder();
     m_R2Jesu_ElevatorSubsystem.resetElevatorEncoder();
     m_R2Jesu_HangerSubsystem.servoOut();
 
@@ -105,19 +105,28 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    drivebase.setDefaultCommand(
-      drivebase.driveCommand(() -> driverXbox.getRightY(),
-        () ->  driverXbox.getRightX(),
-        () -> -driverXbox.getLeftX()));
+    var alliance = DriverStation.getAlliance();
+    if (alliance.get() == DriverStation.Alliance.Blue) {
+        drivebase.setDefaultCommand(
+          drivebase.driveCommand(() -> -driverXbox.getRightY(),
+          () ->  -driverXbox.getRightX(),
+          () -> -driverXbox.getLeftX()));
+    }
+    else {
+      drivebase.setDefaultCommand(
+          drivebase.driveCommand(() -> driverXbox.getRightY(),
+          () ->  driverXbox.getRightX(),
+          () -> -driverXbox.getLeftX()));
+    }
 
     driver2Xbox.start().onTrue(new SequentialCommandGroup(new R2Jesu_ReleaseHangerCommand(m_R2Jesu_HangerSubsystem), new R2Jesu_DropCoralChuteCommand(m_R2Jesu_CoralSubsystem)));
     driverXbox.leftTrigger().whileTrue(new R2Jesu_HangCommand(m_R2Jesu_HangerSubsystem));
     driver2Xbox.povUp().onTrue(new R2Jesu_ElevatorToNextPositionCommand(m_R2Jesu_ElevatorSubsystem));
     driver2Xbox.povDown().onTrue(new R2Jesu_ElevatorToPriorPositionCommand(m_R2Jesu_ElevatorSubsystem));
-    driver2Xbox.leftTrigger().whileTrue(new R2Jesu_AlgaeIngestCommand(m_R2Jesu_AlgaeSubsystem));
-    driver2Xbox.button(5).whileTrue(new R2Jesu_AlgaeRegurgitateCommand(m_R2Jesu_AlgaeSubsystem));
-    driver2Xbox.rightTrigger().whileTrue(new R2Jesu_AlgaeLowerCommand(m_R2Jesu_AlgaeSubsystem));
-    driver2Xbox.button(6).whileTrue(new R2Jesu_AlgaeRaiseCommand(m_R2Jesu_AlgaeSubsystem));
+    driver2Xbox.leftTrigger().whileTrue(new R2Jesu_AlgaeRegurgitateCommand(m_R2Jesu_AlgaeSubsystem));
+    driver2Xbox.button(5).whileTrue(new R2Jesu_AlgaeIngestCommand(m_R2Jesu_AlgaeSubsystem));
+    driver2Xbox.rightTrigger().whileTrue(new R2Jesu_AlgaeRaiseCommand(m_R2Jesu_AlgaeSubsystem));
+    driver2Xbox.button(6).whileTrue(new R2Jesu_AlgaeLowerCommand(m_R2Jesu_AlgaeSubsystem));
     driver2Xbox.button(2).onTrue(new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem));
     buttonBoard.button(1).onTrue(new SequentialCommandGroup(new R2Jesu_AlignToTagCommand(drivebase, true), new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 3),
       new R2Jesu_ReleaseCoralCommand(m_R2Jesu_CoralSubsystem), new R2Jesu_ElevatorToPositionCommand(m_R2Jesu_ElevatorSubsystem, 0)));

@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class R2Jesu_AlgaeSubsystem extends SubsystemBase {
 
-  private Encoder algaeEncoder = new Encoder(5,6, true, CounterBase.EncodingType.k4X);
+  //private Encoder algaeEncoder = new Encoder(5,6, true, CounterBase.EncodingType.k4X);
   private TalonSRX algae1 = new TalonSRX(11);
   private TalonSRX algaeWheels = new TalonSRX(12);
   double encoderMax=300.0;
@@ -98,30 +98,30 @@ public void regurgitateAlgae(double speed) {
 
 }
 
-public double getAlgaeEncoder() {
-  /* lower the algae which will set the motor in the proper direction to lower
-   * this may need to take in a speed and the PID logic for a lower to x level with
-   * the PID slowing the speed on approach
-   */
+/* public double getAlgaeEncoder() {
+  // lower the algae which will set the motor in the proper direction to lower
+   // this may need to take in a speed and the PID logic for a lower to x level with
+   // the PID slowing the speed on approach
+   //
   return algaeEncoder.getDistance();
 
 }
 
 public void resetAlgaeEncoder() {
-  /* lower the algae which will set the motor in the proper direction to lower
-   * this may need to take in a speed and the PID logic for a lower to x level with
-   * the PID slowing the speed on approach
-   */
+  // lower the algae which will set the motor in the proper direction to lower
+   // this may need to take in a speed and the PID logic for a lower to x level with
+   // the PID slowing the speed on approach
+   //
   algaeEncoder.reset();
 
-}
+} */
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     //System.out.println("periodic");
 
-    SmartDashboard.putNumber("Algaeencoderdistance", algaeEncoder.getDistance());
+    //SmartDashboard.putNumber("Algaeencoderdistance", algaeEncoder.getDistance());
    
   }
 

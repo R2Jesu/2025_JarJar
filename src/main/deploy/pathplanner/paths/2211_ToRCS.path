@@ -12,7 +12,7 @@
         "y": 2.013178301924879
       },
       "isLocked": false,
-      "linkedName": "2211"
+      "linkedName": "B2211"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "coral station right"
+      "linkedName": "Bcoral station right"
     }
   ],
   "rotationTargets": [],

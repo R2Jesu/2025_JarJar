@@ -12,7 +12,7 @@
         "y": 6.277596768311292
       },
       "isLocked": false,
-      "linkedName": "1908"
+      "linkedName": "B1908"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "coral station left"
+      "linkedName": "Bcoral station left"
     }
   ],
   "rotationTargets": [],

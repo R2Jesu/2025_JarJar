@@ -37,12 +37,13 @@ public class R2Jesu_ReleaseCoralCommand extends Command {
     theTimer.start();
     m_subsystem.releaseCoral();
     m_finish=false;
+    theTimer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_subsystem.hasReleased()  || theTimer.hasElapsed(1.5)) {
+    if (m_subsystem.hasReleased()  || theTimer.hasElapsed(3)) {
       m_finish=true;
     }
   }
