@@ -54,7 +54,7 @@ public class R2Jesu_HangerSubsystem extends SubsystemBase {
   }
 
   public void hang(double speed) {
-    hanger1.set(speed);
+    hanger1.set(-speed);
   } 
 
   public void setReleased() {
