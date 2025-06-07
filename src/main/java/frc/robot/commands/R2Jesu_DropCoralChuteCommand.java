@@ -36,17 +36,20 @@ public class R2Jesu_DropCoralChuteCommand extends Command {
   @Override
   public void initialize() {
     m_finish=false;
-    m_subsystem.dropChute();
     theTime = Timer.getTimestamp();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if ((Timer.getTimestamp() - theTime) >= 2) {
+    if ((Timer.getTimestamp() - theTime) >= 5) {
       m_subsystem.stopChute();
       m_finish=true;
     }
+    else if ((Timer.getTimestamp() - theTime) >= 3) {
+      m_subsystem.dropChute();
+    }
+
   }
   
   // Called once the command ends or is interrupted.
