@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.729374999999999,
-        "y": 2.658892045454545
+        "x": 3.6522727272727273,
+        "y": 2.561363636363636
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.84103961582658,
-        "y": 2.062188848729084
+        "x": 2.763937343099308,
+        "y": 1.964660439638175
       },
       "isLocked": false,
       "linkedName": "B1706"
     },
     {
       "anchor": {
-        "x": 1.55,
-        "y": 0.94
+        "x": 1.192550505050505,
+        "y": 0.8741161616161617
       },
       "prevControl": {
-        "x": 2.6435306082193293,
-        "y": 1.677973965672595
+        "x": 2.286081113269835,
+        "y": 1.6120901272887567
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 1.8,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 75.0,
     "nominalVoltage": 12.0,

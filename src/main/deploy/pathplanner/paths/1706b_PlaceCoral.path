@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.4077127112924375,
-        "y": 1.7663109855397865
+        "x": 7.382512626262626,
+        "y": 1.3315025252525254
       },
       "isLocked": false,
       "linkedName": "Bred start"
     },
     {
       "anchor": {
-        "x": 3.729374999999999,
-        "y": 2.658892045454545
+        "x": 3.6522727272727273,
+        "y": 2.561363636363636
       },
       "prevControl": {
-        "x": 4.052059275184274,
-        "y": 2.227238943488943
+        "x": 3.591287878787879,
+        "y": 2.1141414141414145
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 1.8,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 75.0,
     "nominalVoltage": 12.0,

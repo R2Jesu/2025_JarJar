@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.55,
-        "y": 0.94
+        "x": 1.192550505050505,
+        "y": 0.8741161616161617
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4226120843578833,
-        "y": 1.531219279168989
+        "x": 2.0651625894083887,
+        "y": 1.4653354407851507
       },
       "isLocked": false,
       "linkedName": "Bcoral station right"
     },
     {
       "anchor": {
-        "x": 3.729374999999999,
-        "y": 2.658892045454545
+        "x": 3.6522727272727273,
+        "y": 2.561363636363636
       },
       "prevControl": {
-        "x": 2.7638811705209547,
-        "y": 1.9939786124266932
+        "x": 2.686778897793683,
+        "y": 1.8964502033357844
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 1.8,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 75.0,
     "nominalVoltage": 12.0,
