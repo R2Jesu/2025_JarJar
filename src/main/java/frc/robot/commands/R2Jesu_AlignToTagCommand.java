@@ -19,7 +19,7 @@ public class R2Jesu_AlignToTagCommand extends Command {
   private boolean sideL;
   private Timer dontSeeTagTimer, stopTimer, overallTimer;
   private PIDController xControl = new PIDController(.1, 0, 0);
-  private PIDController yControl = new PIDController(2, 0, 0);  
+  private PIDController yControl = new PIDController(2.5, 0, 0);  
   private PIDController zControl = new PIDController(.068, 0, .0);
 
   private final SwerveSubsystem m_subsystem;

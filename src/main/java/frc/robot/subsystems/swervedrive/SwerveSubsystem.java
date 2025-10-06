@@ -141,7 +141,6 @@ public class SwerveSubsystem extends SubsystemBase
       System.out.println("Configuration failed! " + e);
     }
   }
-
   /**
    * Construct the swerve drive.
    *

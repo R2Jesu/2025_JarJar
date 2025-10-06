@@ -32,7 +32,7 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
   private PIDController m_elevatorDownController = new PIDController(.05, 0.0, 0.0, 0.01); //p 1.5
   private double pidOutput;
   private double downpidOutput;
-  private DigitalInput elevatorLimit = new DigitalInput(8);
+  //private DigitalInput elevatorLimit = new DigitalInput(8);
   private Servo myServo = new Servo(9);
   private PWMConfigDataResult myResult;
  
@@ -74,13 +74,13 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
      * this may need to take in a speed and the PID logic for a raise to x level with
      * the PID slowing the speed on approach
      */
-    if (speed > .60)
+    if (speed > .90)
     {
-      speed = .60;
+      speed = .90;
     }
-    if (speed < -.50)
+    if (speed < -.70)
     {
-      speed = -.50;
+      speed = -.70;
     }
 
     elevator1.set(speed);
@@ -222,7 +222,7 @@ public boolean canMove() {
 
   // To tuen it off when needed
   //pidOutput=0;
-  if (elevatorLimit.get())
+/*   if (elevatorLimit.get())
   {
     downpidOutput = m_elevatorDownController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]);
     pidOutput = m_elevatorController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]); 
@@ -232,7 +232,10 @@ public boolean canMove() {
     downpidOutput = 0;
     pidOutput = 0;
   
-  }
+  } */
+
+  downpidOutput = m_elevatorDownController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]);
+  pidOutput = m_elevatorController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]); 
 
   if (targetPosition < currentPosition)
   {
