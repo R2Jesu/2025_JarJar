@@ -18,9 +18,9 @@ public class R2Jesu_AlignToTagCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private boolean sideL;
   private Timer dontSeeTagTimer, stopTimer, overallTimer;
-  private PIDController xControl = new PIDController(1.5, 0, .5);
-  private PIDController yControl = new PIDController(2, 0, 0);  
-  private PIDController zControl = new PIDController(.058, 0, .0);
+  private PIDController xControl = new PIDController(.1, 0, 0);
+  private PIDController yControl = new PIDController(2.5, 0, 0);  
+  private PIDController zControl = new PIDController(.068, 0, .0);
 
   private final SwerveSubsystem m_subsystem;
 
@@ -48,18 +48,18 @@ public class R2Jesu_AlignToTagCommand extends Command {
     this.overallTimer = new Timer();
     this.overallTimer.start();
     zControl.setSetpoint(0.0);
-    zControl.setTolerance(.5);
+    zControl.setTolerance(.2);
 
     if (sideL) {
-      yControl.setSetpoint(-.19);
+      yControl.setSetpoint(-.175);
     }
     else {
-      yControl.setSetpoint(.19);
+      yControl.setSetpoint(.175);
     }
-    yControl.setTolerance(.5);
+    yControl.setTolerance(.1);
 
-    xControl.setSetpoint(0.0);
-    xControl.setTolerance(.5);
+    xControl.setSetpoint(6.0);
+    xControl.setTolerance(.2);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -69,17 +69,22 @@ public class R2Jesu_AlignToTagCommand extends Command {
       dontSeeTagTimer.reset();
       double[] positions = LimelightHelpers.getCameraPose_TargetSpace("limelight");
 
-      double xSpeed = -xControl.calculate(positions[1]);
+      double xSpeed = -(xControl.calculate(SwerveSubsystem.distInIn, xControl.getSetpoint()));
+/*       if (SwerveSubsystem.distInIn <= 6.0) {
+        xSpeed = 0;
+      } */
       SmartDashboard.putNumber("xspeed", xSpeed);
-      double ySpeed = yControl.calculate(positions[0]);
+      double ySpeed = -yControl.calculate(positions[0]);
       SmartDashboard.putNumber("yspeed", ySpeed);
-      double rotValue = zControl.calculate(positions[4]);
+      double rotValue = -zControl.calculate(positions[4]);
       SmartDashboard.putNumber("zspeed", rotValue);
       SmartDashboard.putNumber("tx:", LimelightHelpers.getTX("limelight"));
       
 
-      //m_subsystem.drive(new Translation2d(yControl.getError() < 0.5 ? xSpeed : 0, ySpeed), rotValue, false);
-      m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
+      m_subsystem.drive(new Translation2d(xSpeed, ySpeed), rotValue, false);
+      //m_subsystem.drive(new Translation2d(yControl.getError() < 0.2 ? xSpeed : 0, ySpeed), rotValue, false);
+      //m_subsystem.drive(new Translation2d(xControl.atSetpoint() ? 0 : xSpeed, ySpeed), rotValue, false);
+      //m_subsystem.drive(new Translation2d(0, ySpeed), rotValue, false);
 
 
       if (!zControl.atSetpoint() ||
@@ -103,6 +108,6 @@ public class R2Jesu_AlignToTagCommand extends Command {
   @Override
   public boolean isFinished() {
     return this.dontSeeTagTimer.hasElapsed(1.0) ||
-        stopTimer.hasElapsed(0.3) || overallTimer.hasElapsed(7.0);
+        stopTimer.hasElapsed(0.3) || overallTimer.hasElapsed(2.0);
   }
 }

@@ -4,24 +4,23 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.R2Jesu_HangerSubsystem;
+import frc.robot.subsystems.R2Jesu_CoralSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** An R2Jesu_Hanger command that uses an R2Jesu_Hangerer subsystem. */
-public class R2Jesu_ReleaseHangerCommand extends Command {
+/** An R2Jesu_Coral command that uses an R2Jesu_Coraler subsystem. */
+public class R2Jesu_WaitForCoralCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private boolean m_finish;
-  private Timer theTimer = new Timer();
-
-  private final R2Jesu_HangerSubsystem m_subsystem;
+  private Timer overallTimer;
+  private final R2Jesu_CoralSubsystem m_subsystem;
 
   /**
-   * Creates a new R2Jesu_HangerCommand.
+   * Creates a new R2Jesu_CoralCommand.
    * 
    * @param subsystem The subsystem used by this command.
    */
-  public R2Jesu_ReleaseHangerCommand(R2Jesu_HangerSubsystem subsystem) {
+  public R2Jesu_WaitForCoralCommand(R2Jesu_CoralSubsystem subsystem) {
     m_subsystem = subsystem; 
     m_finish=false;
 
@@ -34,28 +33,27 @@ public class R2Jesu_ReleaseHangerCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_finish=false;
-    m_subsystem.releaseHanger();
-    theTimer.start();
+    this.overallTimer = new Timer();
+    this.overallTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (theTimer.hasElapsed(2.0)) {
-      m_subsystem.setReleased();
+    if (m_subsystem.haveCoral()) {
       m_finish=true;
-    }   
+    }
   }
   
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_finish;
+    return m_finish || overallTimer.hasElapsed(3.0);
   }
 }

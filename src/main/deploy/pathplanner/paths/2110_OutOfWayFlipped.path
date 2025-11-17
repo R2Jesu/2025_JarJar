@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.58918918918919,
-        "y": 6.179222972972972
+        "x": 6.176097972972973,
+        "y": 4.034881756756757
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.561486486486486,
-        "y": 5.863006756756756
+        "x": 6.377173169495083,
+        "y": 3.2663740600307003
       },
       "isLocked": false,
-      "linkedName": "Bblue start"
+      "linkedName": "B2110"
     },
     {
       "anchor": {
-        "x": 5.346030405405405,
-        "y": 5.457854729729729
+        "x": 6.936993243243243,
+        "y": 1.0110641891891885
       },
       "prevControl": {
-        "x": 6.502195945945945,
-        "y": 5.91241554054054
+        "x": 6.647673134755728,
+        "y": 2.066916265327633
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "B2009"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -120.78414652632635
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "2009",
+  "folder": "2110",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

@@ -3,59 +3,52 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.6957770270270265,
-        "y": 2.710726351351351
+        "x": 3.6522727272727273,
+        "y": 2.561363636363636
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.881481538263745,
-        "y": 1.952528778534287
+        "x": 2.763937343099308,
+        "y": 1.964660439638175
       },
       "isLocked": false,
-      "linkedName": "1706"
+      "linkedName": "B1706"
     },
     {
       "anchor": {
-        "x": 1.7391891891891893,
-        "y": 0.8035472972972957
+        "x": 1.192550505050505,
+        "y": 0.8741161616161617
       },
       "prevControl": {
-        "x": 2.688975356528648,
-        "y": 1.616145277405331
+        "x": 2.286081113269835,
+        "y": 1.6120901272887567
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "coral station right"
+      "linkedName": "Bcoral station right"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "R2Jesu_SeeCoral",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 90.0,
-    "maxAngularAcceleration": 135.0,
+    "maxAcceleration": 1.8,
+    "maxAngularVelocity": 45.0,
+    "maxAngularAcceleration": 75.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 51.60483549675404
+    "rotation": 52.69605172201652
   },
   "reversed": false,
   "folder": "1706",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 56.07020257793932
+    "rotation": 59.588918732874596
   },
   "useDefaultConstraints": true
 }

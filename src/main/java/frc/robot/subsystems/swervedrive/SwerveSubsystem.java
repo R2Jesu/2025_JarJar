@@ -62,7 +62,10 @@ import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 import frc.robot.utilities.LimelightHelpers;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.ConfigurationFailedException;
 
 public class SwerveSubsystem extends SubsystemBase
 {
@@ -77,6 +80,11 @@ public class SwerveSubsystem extends SubsystemBase
    */
   private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
   private boolean inDist;
+  private LaserCan lc = new LaserCan(26);
+  public static double distInIn;
+  private Pose2d holdPose = new Pose2d();
+
+  Field2d field = new Field2d();
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -85,6 +93,7 @@ public class SwerveSubsystem extends SubsystemBase
    */
   public SwerveSubsystem(File directory)
   {
+    SmartDashboard.putData(field);
     // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
     //  In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
     //  The encoder resolution per motor revolution is 1 per motor revolution.
@@ -123,8 +132,15 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.pushOffsetsToEncoders(); // Set the absolute encoder to be used over the internal encoder and push the offsets onto it. Throws warning if not possible
 
     setupPathPlanner();
-  }
 
+    try {
+      lc.setRangingMode(LaserCan.RangingMode.SHORT);
+      lc.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
+      lc.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+    } catch (ConfigurationFailedException e) {
+      System.out.println("Configuration failed! " + e);
+    }
+  }
   /**
    * Construct the swerve drive.
    *
@@ -166,20 +182,23 @@ public class SwerveSubsystem extends SubsystemBase
   @Override
   public void periodic()
   {
+    field.setRobotPose(getPose());
     // When vision is enabled we must manually update odometry in SwerveDrive
-    updateVisionOdometry();
+    //updateVisionOdometry();
     //(Target height - camera height) / tan((camera angle + target offset angle from limelight)) * (PI / 180)))
-    double ourDist = (((double)12.0 - (double)13.0) / 
-      (Math.tan(((double)0.0 + LimelightHelpers.getTY("limelight")) * 
-      (3.1415926 / 180.00))));
-    if (ourDist <= 22.5 && ourDist >= 16.5) {
+    LaserCan.Measurement measurement = lc.getMeasurement();
+    distInIn = measurement.distance_mm * 0.03937007874;
+    if (distInIn <= 20.0 && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
       inDist=true;
     }
     else {
       inDist=false;
     }
     SmartDashboard.putBoolean("inDsit", inDist);
-    SmartDashboard.putNumber("Distance", ourDist);
+    SmartDashboard.putNumber("Distance", distInIn);
+    SmartDashboard.putNumber("Heading: ", getHeading().getDegrees());
+    SmartDashboard.putString("currentpose", getPose().toString());
+    SmartDashboard.putString("holdPose", holdPose.toString());
   }
 
   @Override
@@ -643,6 +662,21 @@ public class SwerveSubsystem extends SubsystemBase
   public Pose2d getPose()
   {
     return swerveDrive.getPose();
+  }
+
+  public void resetOurOdometry()
+  {
+    swerveDrive.resetOdometry(holdPose);
+  }
+
+  /**
+   * Gets the current pose (position and rotation) of the robot, as reported by odometry.
+   *
+   * @return The robot's pose
+   */
+  public void getOurPose()
+  {
+    holdPose = swerveDrive.getPose();
   }
 
   /**

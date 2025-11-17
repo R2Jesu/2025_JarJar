@@ -23,8 +23,6 @@ public class R2Jesu_HangCommand extends Command {
   public R2Jesu_HangCommand(R2Jesu_HangerSubsystem subsystem) {
     m_subsystem = subsystem; 
     m_finish=false;
-
-
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -40,7 +38,7 @@ public class R2Jesu_HangCommand extends Command {
   @Override
   public void execute() {
     if (m_subsystem.isHangerReleased()) {
-      m_subsystem.hang(.90);
+      m_subsystem.hang(1.0);
     }
   }
   

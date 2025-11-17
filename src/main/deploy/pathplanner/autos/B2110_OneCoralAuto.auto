@@ -5,21 +5,33 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_HoldPose"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "2110a_TakeCoral"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "2110_OutOfWay"
+            "name": "R2Jesu_AlignA"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_PlaceCoral4"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "One Coral",
+  "folder": "autos we use",
   "choreoAuto": false
 }

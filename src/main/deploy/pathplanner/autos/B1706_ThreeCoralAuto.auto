@@ -1,0 +1,97 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_HoldPose"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1706b_PlaceCoral"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_AlignA"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_PlaceCoral4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1706_GoToRCS"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1706a_PlaceCoralFromCS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_AlignB"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_PlaceCoral4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1706_GoToRCS"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1706b_PlaceCoralFromRCS"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_AlignA"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_PlaceCoralT"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "autos we use",
+  "choreoAuto": false
+}

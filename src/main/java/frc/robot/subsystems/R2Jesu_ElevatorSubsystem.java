@@ -27,19 +27,18 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
   private Encoder elevatorEncoder = new Encoder(1,2, true, CounterBase.EncodingType.k4X);
   private static int currentPosition=0;
   private static int targetPosition=0;
-  private double elevatorStops[] = {0.0, 3.0, 11.0, 25};
+  private double elevatorStops[] = {0.0, 3.5, 11.25, 25};
   private PIDController m_elevatorController = new PIDController(.15, 0.0, 0.0, 0.01); //p 1.5
   private PIDController m_elevatorDownController = new PIDController(.05, 0.0, 0.0, 0.01); //p 1.5
   private double pidOutput;
   private double downpidOutput;
-  private DigitalInput elevatorLimit = new DigitalInput(8);
+  //private DigitalInput elevatorLimit = new DigitalInput(8);
   private Servo myServo = new Servo(9);
   private PWMConfigDataResult myResult;
  
   
   /** Creates a new R2Jesu_ElevatorSubsystem. */
 
-  /** Here we will eventuall put the motor defintions that we need to control to raise and lower the elevator */
   public R2Jesu_ElevatorSubsystem() {
     myServo.setBoundsMicroseconds(1950, 0, 0, 0, 1050);
   }
@@ -75,13 +74,13 @@ public class R2Jesu_ElevatorSubsystem extends SubsystemBase {
      * this may need to take in a speed and the PID logic for a raise to x level with
      * the PID slowing the speed on approach
      */
-    if (speed > .25)
+    if (speed > .90)
     {
-      speed = .25;
+      speed = .90;
     }
-    if (speed < -.15)
+    if (speed < -.70)
     {
-      speed = -.15;
+      speed = -.70;
     }
 
     elevator1.set(speed);
@@ -193,6 +192,29 @@ public static int getElevatorLevel() {
 
 }
 
+public static int getTargetLevel() {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  return targetPosition;
+
+}
+
+public boolean canMove() {
+  /* lower the algae which will set the motor in the proper direction to lower
+   * this may need to take in a speed and the PID logic for a lower to x level with
+   * the PID slowing the speed on approach
+   */
+  double encDist = elevatorEncoder.getDistance();
+  if (encDist < 14.0) {
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -200,7 +222,7 @@ public static int getElevatorLevel() {
 
   // To tuen it off when needed
   //pidOutput=0;
-  if (elevatorLimit.get())
+/*   if (elevatorLimit.get())
   {
     downpidOutput = m_elevatorDownController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]);
     pidOutput = m_elevatorController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]); 
@@ -210,13 +232,16 @@ public static int getElevatorLevel() {
     downpidOutput = 0;
     pidOutput = 0;
   
-  }
+  } */
+
+  downpidOutput = m_elevatorDownController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]);
+  pidOutput = m_elevatorController.calculate(elevatorEncoder.getDistance(), elevatorStops[targetPosition]); 
 
   if (targetPosition < currentPosition)
   {
       this.moveElevator(downpidOutput);
   }
-  else if (targetPosition > currentPosition)
+  else if (targetPosition > currentPosition) 
   {
     this.moveElevator(pidOutput);
   }

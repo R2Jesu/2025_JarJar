@@ -12,20 +12,20 @@
         "y": 6.6000239627939425
       },
       "isLocked": false,
-      "linkedName": "coral station left"
+      "linkedName": "Bcoral station left"
     },
     {
       "anchor": {
-        "x": 3.7056587837837838,
-        "y": 5.368918918918919
+        "x": 3.709431818181818,
+        "y": 5.401079545454545
       },
       "prevControl": {
-        "x": 2.557724775408433,
-        "y": 6.152492076922571
+        "x": 2.5614978098064674,
+        "y": 6.184652703458197
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "1908"
+      "linkedName": "B1908"
     }
   ],
   "rotationTargets": [],
@@ -33,13 +33,13 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "R2Jesu_AlignA",
+      "name": "",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
     },
     {
-      "name": "R2Jesu_PlaceCoral",
+      "name": "",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
       "command": null
@@ -47,9 +47,9 @@
   ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 90.0,
-    "maxAngularAcceleration": 135.0,
+    "maxAcceleration": 1.8,
+    "maxAngularVelocity": 45.0,
+    "maxAngularAcceleration": 75.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -61,7 +61,7 @@
   "folder": "1908",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -54.78240703180723
+    "rotation": -54.78240703180724
   },
   "useDefaultConstraints": true
 }

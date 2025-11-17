@@ -4,28 +4,34 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.R2Jesu_HangerSubsystem;
+import frc.robot.Constants;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import frc.robot.utilities.LimelightHelpers;
 
-/** An R2Jesu_Hanger command that uses an R2Jesu_Hangerer subsystem. */
-public class R2Jesu_ReleaseHangerCommand extends Command {
+/** An SwerveSubsystem command that uses an SwerveSubsystem subsystem. */
+public class R2Jesu_SavePositionCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private boolean m_finish;
-  private Timer theTimer = new Timer();
+  private boolean sideL;
+  private Timer dontSeeTagTimer, stopTimer, overallTimer;
+  private PIDController xControl = new PIDController(1.5, 0, 0);
+  private PIDController yControl = new PIDController(2, 0, 0);  
+  private PIDController zControl = new PIDController(.068, 0, .0);
 
-  private final R2Jesu_HangerSubsystem m_subsystem;
+  private final SwerveSubsystem m_subsystem;
 
   /**
-   * Creates a new R2Jesu_HangerCommand.
+   * Creates a new SwerveCommand.
    * 
    * @param subsystem The subsystem used by this command.
    */
-  public R2Jesu_ReleaseHangerCommand(R2Jesu_HangerSubsystem subsystem) {
+  public R2Jesu_SavePositionCommand(SwerveSubsystem subsystem) {
     m_subsystem = subsystem; 
-    m_finish=false;
-
-
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -34,18 +40,13 @@ public class R2Jesu_ReleaseHangerCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_finish=false;
-    m_subsystem.releaseHanger();
-    theTimer.start();
+     m_subsystem.getOurPose();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (theTimer.hasElapsed(2.0)) {
-      m_subsystem.setReleased();
-      m_finish=true;
-    }   
+
   }
   
   // Called once the command ends or is interrupted.
@@ -56,6 +57,6 @@ public class R2Jesu_ReleaseHangerCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_finish;
+    return true;
   }
 }

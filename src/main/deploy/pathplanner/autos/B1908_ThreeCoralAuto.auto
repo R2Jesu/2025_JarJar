@@ -5,15 +5,39 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_HoldPose"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "1908b_PlaceCoral"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_AlignB"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "R2Jesu_PlaceCoral4"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "1908_GoToLCS"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
           }
         },
         {
@@ -23,21 +47,21 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "1908_GoToLCS"
+            "name": "R2Jesu_AlignA"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "1807_PlaceCoralFromLCS"
+            "name": "R2Jesu_PlaceCoralT"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Three Coral",
+  "folder": "autos we use",
   "choreoAuto": false
 }
